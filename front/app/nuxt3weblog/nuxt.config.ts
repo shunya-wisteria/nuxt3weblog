@@ -1,13 +1,13 @@
 import { Static } from "vue";
-import type { Post } from "~~/types/post";
 
 const getPostRoutes = async () => {
-  const pageLimit = 100;
+  const pageLimit = 10;
   const apiKey = process.env.MICROCMS_API_KEY
-  const reqUrl = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=id&limit=" + pageLimit;
 
-  const response = await fetch(
-    reqUrl,
+  // Get Posts count
+  const cntUrl = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=id&limit=" + 0;
+  const cntRes = await fetch(
+    cntUrl,
     {
       method: "GET",
       headers: {
@@ -15,9 +15,35 @@ const getPostRoutes = async () => {
       }
     }
   );
+  const totalCount = (await cntRes.json()).totalCount;
+  const maxPage = Math.ceil(totalCount / pageLimit);
+
   let ids: any = [];
-  ids = (await response.json()).contents;
-  return ids.map((obj: { id: string }) => `/posts/${obj.id}`)
+  for(let i = 0; i < maxPage; i++){
+    const offset = pageLimit * i;
+    const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=id&limit=" + pageLimit + "&offset=" + offset;
+    console.log(url)
+
+    const res = await fetch(
+      url,
+      {
+        method: "GET",
+        headers: {
+          'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
+        }
+      }
+    );
+    const id = (await res.json()).contents;
+    if(id.length == 0)
+    {
+      ids = id
+    }
+    else
+    {
+      ids = ids.concat(id)
+    }
+  }
+  return ids.map((obj: { id: string }) => `/posts/${obj.id}`);
 }
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
