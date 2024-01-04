@@ -1,27 +1,7 @@
 <template>
-  <ul>
-    <li v-for="blog in data?.contents" :key="blog.id">
-      <NuxtLink :to="`/posts/${blog.id}`">
-        <img
-          :src="blog.eyecatch?.url"
-          :width="blog.eyecatch?.width"
-          :height="blog.eyecatch?.height"
-          alt=""
-        />
-        <div>
-          <div>
-            {{ blog.category?.cat_name }}
-          </div>
-          <div>
-            {{ blog.title }}
-          </div>
-          <div>
-            {{ blog.publishedAt ?? blog.createdAt }}
-          </div>
-        </div>
-      </NuxtLink>
-    </li>
-  </ul>
+  <section>
+    <PostIndex :posts="data?.contents"/>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -34,6 +14,26 @@ const { data } = await useMicroCMSGetList<Post>({
   endpoint: "posts",
   queries: {limit:pageLimit, offset:0}
 });
+
+// const cnt = data.value?.contents.length ? data.value?.contents.length : 0;
+
+// const posts = []
+
+// for(let i = 0; i < cnt; i++)
+// {
+//   const post = {
+//     id : data.value?.contents[i].id,
+//     title : data.value?.contents[i].title,
+//     abstract : data.value?.contents[i].abstract,
+//     eycatch : data.value?.contents[i].eyecatch,
+//     publishedAt : 
+
+//   title : string;
+//   abstract : string;
+//   eycatch : MicroCMSImage | null;
+//   publishedAt : string;
+//   }
+// }
 
 
 

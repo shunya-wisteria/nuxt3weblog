@@ -1,27 +1,5 @@
 <template>
-  <ul>
-    <li v-for="blog in posts" :key="blog.id">
-      <NuxtLink :to="`/posts/${blog.id}`">
-        <img
-          :src="blog.eyecatch?.url"
-          :width="blog.eyecatch?.width"
-          :height="blog.eyecatch?.height"
-          alt=""
-        />
-        <div>
-          <div>
-            {{ blog.category?.cat_name }}
-          </div>
-          <div>
-            {{ blog.title }}
-          </div>
-          <div>
-            {{ blog.publishedAt ?? blog.createdAt }}
-          </div>
-        </div>
-      </NuxtLink>
-    </li>
-  </ul>
+  <PostIndex :posts="posts"/>
 </template>
 
 <script setup lang="ts">

@@ -12,7 +12,10 @@
     </v-app-bar>
 
     <v-main>
-      <NuxtPage />
+      <div class="main-cnt">
+        <NuxtPage />
+      </div>
+        
     </v-main>
   </v-app>
 </template>
@@ -43,5 +46,13 @@
   font-size:80%; 
   margin-left:15px;
   font-family: "Roboto", sans-serif;
+}
+
+.main-cnt
+{
+  width:95%;
+  max-width: 1500px;
+  background-color: #e0e0e0;
+  margin: 0 auto;
 }
 </style>
