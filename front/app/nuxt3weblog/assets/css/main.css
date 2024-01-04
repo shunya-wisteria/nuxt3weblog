@@ -1,0 +1,9 @@
+.v-application{
+  font-family: 'Open Sans','Rounded Mplus 1c', Segoe UI, "メイリオ", Meiryo, sans-serif;
+  font-weight: 100;
+  color: #737373 !important;
+}
+
+.textarea{
+  transform: rotate(0.05deg) !important;
+}
