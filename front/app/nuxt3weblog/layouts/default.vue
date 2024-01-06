@@ -67,7 +67,6 @@
 {
   width:95%;
   max-width: 1500px;
-  background-color: #e0e0e0;
   margin: 0 auto;
 }
 </style>
