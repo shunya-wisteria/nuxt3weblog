@@ -17,6 +17,7 @@
     "vuetify-nuxt-module": "^0.8.0"
   },
   "dependencies": {
+    "dayjs": "^1.11.10",
     "nuxt-microcms-module": "^3.0.2"
   }
 }

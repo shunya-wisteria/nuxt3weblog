@@ -3,27 +3,27 @@
     <v-row align="center" justify="space-around">
       <v-col v-for="post in posts" :key="post.id" xl="3" lg="4" md="6"  cols="6" sm="12" xs="12">
         <nuxt-link :to="'/posts/' + post.id">
-        <v-hover
-          v-slot="{ isHovering, props }"
-          open-delay="100"
-        >
-          <v-card
-            :elevation="isHovering ? 12 : 2"
-            :class="{ 'on-hover': isHovering }"
-            class="mx-auto"
-            height="400"
-            v-bind="props">
-            <v-img
-              height="180px"
-              v-bind:src="post.eyecatch == null ? '/noimage.jpg' : post.eyecatch.url"
-              width=100%;
-              cover
-            />
-            <v-card-title class="postTitle textarea">{{ post.title }}</v-card-title>
-            <v-card-text class="postAbstract textarea">{{ post.abstract }}</v-card-text>
-            <v-card-text class="postFotter textarea">{{ post.publishedAt }}</v-card-text>
-          </v-card>
-        </v-hover>
+          <v-hover
+            v-slot="{ isHovering, props }"
+            open-delay="100"
+          >
+            <v-card
+              :elevation="isHovering ? 12 : 2"
+              :class="{ 'on-hover': isHovering }"
+              class="mx-auto"
+              height="400"
+              v-bind="props">
+              <v-img
+                height="180px"
+                v-bind:src="post.eyecatch == null ? '/noimage.jpg' : post.eyecatch.url"
+                width=100%;
+                cover
+              />
+              <v-card-title class="postTitle textarea">{{ post.title }}</v-card-title>
+              <v-card-text class="postAbstract textarea">{{ post.abstract }}</v-card-text>
+              <v-card-text class="postFotter textarea">{{ dateFormat(post.publishedAt ? post.publishedAt: "") }}</v-card-text>
+            </v-card>
+          </v-hover>
         </nuxt-link>
       </v-col>
     </v-row>
@@ -31,10 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Post } from "../types/post"
-
 interface Props {
-  posts: Post[];
+  posts: any;
 }
 
 const { posts } = defineProps<Props>();
@@ -42,6 +40,9 @@ const { posts } = defineProps<Props>();
 </script>
 
 <style scoped>
+  a{
+    text-decoration: none;
+  }
   .postTitle{
     font-size:120%;
     font-weight: 300;
