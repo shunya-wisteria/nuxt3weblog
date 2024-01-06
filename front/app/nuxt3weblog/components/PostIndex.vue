@@ -1,12 +1,8 @@
-
-import type { mergeProps } from 'vue';
-
-import type { stringifyQuery } from 'vue-router';
 <template>
   <v-container>
     <v-row align="center" justify="space-around">
       <v-col v-for="post in posts" :key="post.id" xl="3" lg="4" md="6"  cols="6" sm="12" xs="12">
-        
+        <nuxt-link :to="'/posts/' + post.id">
         <v-hover
           v-slot="{ isHovering, props }"
           open-delay="100"
@@ -28,34 +24,20 @@ import type { stringifyQuery } from 'vue-router';
             <v-card-text class="postFotter textarea">{{ post.publishedAt }}</v-card-text>
           </v-card>
         </v-hover>
+        </nuxt-link>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import type { MicroCMSListContent } from "microcms-js-sdk";
-import type { Post } from "./post"
-
+import type { Post } from "../types/post"
 
 interface Props {
-  posts?:(MicroCMSListContent & Post) | null;
-  // id?: string;
-  // createdAt?: string;
-  // updatedAt?: string;
-  // publishedAt?: string;
-  // revisedAt?: string;
-  // title?: string;
-  // abstract?: string;
-  // eyecatch?: MicroCMSImage | null;
-  // toc?: boolean;
-  // body?: string;
-  // category?: Category | null;
-  // tags?: (MicroCMSListContent & Tag) | null;
-  // body_old?: string | null;
+  posts: Post[];
 }
 
-const props = defineProps<Props>();
+const { posts } = defineProps<Props>();
 
 </script>
 

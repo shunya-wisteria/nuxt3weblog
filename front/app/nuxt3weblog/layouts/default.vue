@@ -1,6 +1,21 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer">
+    <!-- <v-navigation-drawer
+      expand-on-hover
+      rail
+      v-model="drawer"
+    > -->
+    <v-navigation-drawer
+      temporary
+      v-model="drawer"
+    >
+      <v-list>
+        <v-list-item
+            prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
+            title="Sandra Adams"
+            subtitle="sandra_a88@gmailcom"
+          ></v-list-item>
+      </v-list>
     </v-navigation-drawer>
 
     <v-app-bar>
