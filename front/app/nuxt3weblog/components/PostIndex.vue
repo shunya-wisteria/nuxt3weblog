@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-container class="main-cnt">
     <v-row align="center" justify="space-around">
-      <v-col v-for="post in posts" :key="post.id" xl="3" lg="4" md="6"  cols="6" sm="12" xs="12">
+      <v-col v-for="post in posts" :key="post.id" xl="4" lg="4" md="6"  cols="12" sm="12" xs="12">
         <nuxt-link :to="'/posts/' + post.id">
           <v-hover
             v-slot="{ isHovering, props }"
-            open-delay="100"
+            open-delay="80"
           >
             <v-card
               :elevation="isHovering ? 12 : 2"
@@ -16,7 +16,7 @@
               <v-img
                 height="180px"
                 v-bind:src="post.eyecatch == null ? '/noimage.jpg' : post.eyecatch.url"
-                width=100%;
+                width=100%
                 cover
               />
               <v-card-title class="postTitle textarea">{{ post.title }}</v-card-title>
@@ -61,5 +61,12 @@ const { posts } = defineProps<Props>();
   {
     height: 40px;
     padding:0px 16px 5px 16px;
+  }
+
+  .main-cnt
+  {
+    width:95%;
+    max-width: 1500px;
+    margin: 0 auto;
   }
 </style>

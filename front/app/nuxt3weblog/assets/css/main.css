@@ -5,6 +5,17 @@
   background-color: #F9F9F9 !important;
 }
 
+.v-application a, .v-application a:hover {
+  color: #737373;
+  text-decoration: none;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.v-application a:hover {
+  color: #dcdcdc;
+  transition : 0.5s;
+}
+
 .textarea{
   transform: rotate(0.05deg) !important;
 }

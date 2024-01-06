@@ -1,6 +1,6 @@
 <template>
   <PostIndex :posts="posts"/>
-  <v-pagination v-model="page" :length="maxPage" v-on:click="OnPaging"></v-pagination>
+  <v-pagination v-model="page" :length="maxPage" v-on:click="OnPaging" rounded="rounded-lg" color="#7D8692"></v-pagination>
 </template>
 
 <script setup lang="ts">
