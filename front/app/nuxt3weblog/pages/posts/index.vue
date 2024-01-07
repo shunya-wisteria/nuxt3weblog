@@ -40,6 +40,10 @@ const OnPaging = () => {
   })
 }
 
+useHead({
+  title:"Posts"
+})
+
 watch(() => page.value, ()=> {refresh(postsData[page.value - 1])})
 
 

@@ -121,7 +121,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      pageLimit: process.env.PAGE_LIMIT
+      pageLimit: process.env.PAGE_LIMIT,
+      metaOgUrl: process.env.META_OG_URL
     }
   }
 })
