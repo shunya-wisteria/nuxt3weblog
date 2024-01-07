@@ -109,6 +109,10 @@ export default defineNuxtConfig({
     apiKey: process.env.MICROCMS_API_KEY,
   },
 
+  plugins: [
+    '~/plugins/vue3-smooth-scroll.ts',
+  ],
+
   nitro: {
     prerender: {
       failOnError: false,
