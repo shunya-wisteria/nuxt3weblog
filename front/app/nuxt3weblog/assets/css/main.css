@@ -21,6 +21,7 @@
 }
 
 h1{
+  font-family: 'Open Sans', Segoe UI, "メイリオ", Meiryo, sans-serif;
   color: #444;
   font-size: 24px;
   font-weight: normal;
@@ -30,6 +31,7 @@ h1{
 }
 
 h2{
+  font-family: 'Open Sans', Segoe UI, "メイリオ", Meiryo, sans-serif;
   color: #444;
   font-size: 24px;
   font-weight: normal;
@@ -99,11 +101,13 @@ h3{
   line-height: 130%;
 
   width: 95%;
-  max-width: 800px;
+  max-width: 1200px;
   overflow: auto;
 
   padding: 0.3rem 0.8rem;
-  margin: 20px 0px 10px 0px;
+  margin:0 auto;
+  margin-top:15px;
+  margin-bottom: 15px;
 }
 
 .post table{
