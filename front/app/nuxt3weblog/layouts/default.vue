@@ -56,7 +56,7 @@
 
   const { mdAndDown } = useDisplay();
 
-  const drawer = ref(true)
+  const drawer = ref(false)
 
   const { data } = await useMicroCMSGetObject({endpoint:"pageinfo"});
   const pageInfo = useState<PageInfo>('PageInfo', ()=>{

@@ -1,4 +1,5 @@
 <template>
+  <h1>Posts</h1>
   <PostIndex :posts="posts"/>
   <v-pagination v-model="page" :length="maxPage" v-on:click="OnPaging" rounded="rounded-lg" color="#7D8692"></v-pagination>
 </template>

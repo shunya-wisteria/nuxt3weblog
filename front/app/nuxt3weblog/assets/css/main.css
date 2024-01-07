@@ -19,3 +19,102 @@
 .textarea{
   transform: rotate(0.05deg) !important;
 }
+
+h1{
+  color: #444;
+  font-size: 24px;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  margin : 20px 0px;
+}
+
+h2{
+  color: #444;
+  font-size: 24px;
+  font-weight: normal;
+  text-align: center;
+  margin : 40px 0px 30px 0px;
+}
+
+h3{
+  color: #444;
+  font-size: 20px;
+  font-weight: normal;
+  margin : 30px 0px 10px 0px;
+}
+
+.v-chip{
+  border-radius: 4px !important;
+  margin:5px 5px;
+  font-size: 80%;
+  color: #444 !important;
+  padding: 15px 15px 15px 10px !important;
+}
+
+.v-avatar{
+  margin-right: 5px;
+}
+
+.post{
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  display: block;
+  font-size:100%;
+  line-height: 180%;
+}
+.post img {
+  width:100%;
+  height: auto;
+  max-width: 1200px; 
+  border:1px solid #DDDDDD;
+  margin: 0 auto;
+  margin-top:10px;
+  filter: drop-shadow(5px 5px 5px #BBB);
+}
+
+.post blockquote{
+  border: 2px solid #dcdcdc;
+  border-radius: 2px;
+  padding: 20px 20px;
+  margin: 20px 10px;
+}
+
+.post ul{
+  margin: 15px 30px;
+}
+
+.post li{
+  list-style-type : circle;
+}
+
+.post pre{
+  background-color:#f1f1f1;
+  border-radius: 2px;
+  border: solid 1px #d5d5d5;
+  filter: drop-shadow(2px 2px 4px #bbbbbb);
+  line-height: 130%;
+
+  width: 95%;
+  max-width: 800px;
+  overflow: auto;
+
+  padding: 0.3rem 0.8rem;
+  margin: 20px 0px 10px 0px;
+}
+
+.post table{
+  margin: 20px 0px;
+}
+
+.theme--light.v-application code{
+  background-color: #f1f1f1;
+  font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+}
+
+.v-breadcrumbs{
+  margin: 30px 0px 10px 0px !important;
+}

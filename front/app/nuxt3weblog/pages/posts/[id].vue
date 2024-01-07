@@ -1,6 +1,7 @@
 <template>
   <template v-if="data">
-    <h1>
+    <Post :post="(data as Post)"></Post>
+    <!-- <h1>
       {{ data.title }}
     </h1>
     <img
@@ -17,7 +18,7 @@
         {{ data.publishedAt ?? data.createdAt }}
       </div>
     </div>
-    <div v-html="data.body"></div>
+    <div v-html="data.body"></div> -->
   </template>
 </template>
 
@@ -30,4 +31,5 @@ const { data } = await useMicroCMSGetListDetail<Post>({
   endpoint: "posts",
   contentId: Array.isArray(params.id) ? params.id[0] : params.id,
 });
+
 </script>
