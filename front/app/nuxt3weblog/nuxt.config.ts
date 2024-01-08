@@ -127,10 +127,12 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
+  // @ts-ignore
   modules: [
     'vuetify-nuxt-module',
     '@nuxtjs/google-fonts',
-    'nuxt-microcms-module'
+    'nuxt-microcms-module',
+    '@nuxtjs/sitemap',
   ],
   vuetify: {
     vuetifyOptions: 'vuetify.config.ts'
@@ -155,6 +157,10 @@ export default defineNuxtConfig({
     prerender: {
       failOnError: false,
     },
+  },
+
+  site:{
+    url: process.env.HOST_NAME,
   },
 
   runtimeConfig: {
