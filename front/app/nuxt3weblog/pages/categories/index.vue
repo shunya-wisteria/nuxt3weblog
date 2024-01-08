@@ -7,4 +7,8 @@
 <script setup>
 const cat = await useGetCategories();
 
+useHead({
+  title:"Categories"
+})
+
 </script>

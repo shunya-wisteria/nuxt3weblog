@@ -7,4 +7,8 @@
 
 <script setup>
 const tag = await useGetTags();
+
+useHead({
+  title:"Tags"
+})
 </script>

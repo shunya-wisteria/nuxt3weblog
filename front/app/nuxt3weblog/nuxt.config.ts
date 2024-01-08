@@ -46,6 +46,38 @@ const getPostRoutes = async () => {
   return ids.map((obj: { id: string }) => `/posts/${obj.id}`);
 }
 
+const getTags = async () => {
+  const apiKey = process.env.MICROCMS_API_KEY;
+  const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/tags?field=id&limit=100";
+  const res = await fetch(
+    url,
+    {
+      method: "GET",
+      headers: {
+        'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
+      }
+    }
+  );
+  const id = (await res.json()).contents;
+  return id.map((obj: { id: string }) => `/tags/${obj.id}`);
+}
+
+const getCategories = async () => {
+  const apiKey = process.env.MICROCMS_API_KEY;
+  const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/categories?field=id&limit=100";
+  const res = await fetch(
+    url,
+    {
+      method: "GET",
+      headers: {
+        'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
+      }
+    }
+  );
+  const id = (await res.json()).contents;
+  return id.map((obj: { id: string }) => `/categories/${obj.id}`);
+}
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
@@ -55,6 +87,12 @@ export default defineNuxtConfig({
     async 'nitro:config'(nitroConfig) {
       const slugs = await getPostRoutes();
       nitroConfig.prerender?.routes?.push(...slugs);
+
+      const tags = await getTags();
+      nitroConfig.prerender?.routes?.push(...tags);
+
+      const categories = await getCategories();
+      nitroConfig.prerender?.routes?.push(...categories);
     }
   },
 
