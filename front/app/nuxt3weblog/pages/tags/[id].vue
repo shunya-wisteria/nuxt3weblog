@@ -14,7 +14,7 @@ const pageLimit = Number(config.public.pageLimit) > 0 ? Number(config.public.pag
 
 const postsData = [];
 
-const totalCount = await useGetPostsCount({limit:1, offset:0, filters:"tags[contains]" + tag.value})
+const totalCount = await useGetPostsCount({limit:1, offset:0, filters:"tags[contains]" + tag.value}, {key:"tagCnt-" + tag.value})
 
 const maxPage = ref(Math.ceil(totalCount / pageLimit));
 for(let i = 0; i<maxPage.value; i++)

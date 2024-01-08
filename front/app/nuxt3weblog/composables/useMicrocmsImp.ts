@@ -2,8 +2,7 @@ import type { Post } from "~~/types/post";
 import type { Category } from "~/types/category";
 import type { Tag } from "~/types/tag";
 
-export async function useGetPostsCount(queries:any) {
-  const fOption = {key:"total"}
+export async function useGetPostsCount(queries:any, fOption:any) {
   const { data } = await useMicroCMSGetList<Post>({
     endpoint: "posts",
     queries: queries

@@ -14,7 +14,7 @@ const pageLimit = Number(config.public.pageLimit) > 0 ? Number(config.public.pag
 
 const postsData = [];
 
-const totalCount = await useGetPostsCount({limit:1, offset:0, filters:"category[equals]" + category.value})
+const totalCount = await useGetPostsCount({limit:1, offset:0, filters:"category[equals]" + category.value},{key:"categoryCnt-" + category.value})
 
 const maxPage = ref(Math.ceil(totalCount / pageLimit));
 for(let i = 0; i<maxPage.value; i++)
@@ -35,7 +35,7 @@ const refresh = (post) =>
 const OnPaging = () => {
   const router = useRouter();
   router.push({
-    path : "/tags/" + tag.value,
+    path : "/categories/" + category.value,
     query: {page: page.value}
   })
 }
