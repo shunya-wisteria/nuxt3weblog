@@ -11,17 +11,27 @@ export async function useGetPostsCount(queries:any) {
 }
 
 export async function useGetPostsPerPage(page:number, pageLimit:number, tag:string, category:string) {
-  // ToDo tag/categoryの絞り込みを追加する
-
-
   const offset = pageLimit * page;
-  const tagKey = tag ? tag : "";
-  const catKey = category ? category : "";
   const keyStr = "posts_" + tag + category + "_" + page.toString();
-  const fOption = {key:keyStr}
+  const fOption = {key:keyStr};
+
+  let queries = {};
+  if(tag != "")
+  {
+    queries = {limit:pageLimit, offset:offset, filters:"tags[contains]" + tag};
+  }
+  else if(category != "")
+  {
+    queries = {limit:pageLimit, offset:offset, filters:"category[equals]" + category};
+  }
+  else
+  {
+    queries = {limit:pageLimit, offset:offset};
+  }
+
   const { data } = await useMicroCMSGetList<Post>({
     endpoint: "posts",
-    queries: {limit:pageLimit, offset:offset}
+    queries: queries
   },fOption);
 
   return data.value?.contents;

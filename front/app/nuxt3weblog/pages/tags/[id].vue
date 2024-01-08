@@ -1,30 +1,31 @@
 <template>
-  <h1>Posts</h1>
+  <h1>{{ tag }}</h1>
   <PostIndex :posts="posts"/>
   <v-pagination v-model="page" :length="maxPage" v-on:click="OnPaging" rounded="rounded-lg" color="#7D8692"></v-pagination>
 </template>
 
-<script setup lang="ts">
-const route = useRoute();
-const page = ref(Number(route.query.page) ? Number(route.query.page) : 1);
-
+<script setup>
+const { params, query } = useRoute();
 const config = useRuntimeConfig();
+
+const page = ref(Number(query.page) ? Number(query.page) : 1);
+const tag = ref(params.id);
 const pageLimit = Number(config.public.pageLimit) > 0 ? Number(config.public.pageLimit) : 5;
 
-const postsData:any = [];
+const postsData = [];
 
-const totalCount = await useGetPostsCount({limit:1, offset:0})
+const totalCount = await useGetPostsCount({limit:1, offset:0, filters:"tags[contains]" + tag.value})
 
 const maxPage = ref(Math.ceil(totalCount / pageLimit));
 for(let i = 0; i<maxPage.value; i++)
 {
-  const posts = await useGetPostsPerPage(i, pageLimit, "", "")
+  const posts = await useGetPostsPerPage(i, pageLimit, tag.value, "")
   postsData.push(posts)
 
 }
 const posts = ref(postsData[page.value - 1]);
 
-const refresh = (post:any) =>
+const refresh = (post) =>
 {
   scrollTo(0, 0)
   posts.value = post
@@ -34,16 +35,15 @@ const refresh = (post:any) =>
 const OnPaging = () => {
   const router = useRouter();
   router.push({
-    path : "/posts",
+    path : "/tags/" + tag.value,
     query: {page: page.value}
   })
 }
 
 useHead({
-  title:"Posts"
+  title:"Tag : " + tag.value
 })
 
 watch(() => page.value, ()=> {refresh(postsData[page.value - 1])})
-
 
 </script>
