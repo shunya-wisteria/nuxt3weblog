@@ -1,6 +1,6 @@
 <template>
   <v-container class="main-cnt">
-    <v-row align="center" justify="space-around">
+    <v-row align="center" justify="start">
       <v-col v-for="post in posts" :key="post.id" xl="4" lg="4" md="6"  cols="12" sm="12" xs="12">
         <nuxt-link :to="'/posts/' + post.id">
           <v-hover
