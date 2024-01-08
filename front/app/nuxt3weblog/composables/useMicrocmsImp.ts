@@ -1,4 +1,6 @@
 import type { Post } from "~~/types/post";
+import type { Category } from "~/types/category";
+import type { Tag } from "~/types/tag";
 
 export async function useGetPostsCount(queries:any) {
   const fOption = {key:"total"}
@@ -33,6 +35,26 @@ export async function useGetPostsPerPage(page:number, pageLimit:number, tag:stri
     endpoint: "posts",
     queries: queries
   },fOption);
+
+  return data.value?.contents;
+}
+
+export async function useGetCategories() {
+  const fOption = {key:"categories"}
+  const { data } = await useMicroCMSGetList<Category>({
+    endpoint: "categories",
+    queries: {limit:100}
+  }, fOption);
+
+  return data.value?.contents;
+}
+
+export async function useGetTags() {
+  const fOption = {key:"tags"}
+  const { data } = await useMicroCMSGetList<Tag>({
+    endpoint: "tags",
+    queries: {limit:100}
+  }, fOption);
 
   return data.value?.contents;
 }
