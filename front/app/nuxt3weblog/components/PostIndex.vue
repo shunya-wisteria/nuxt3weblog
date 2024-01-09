@@ -66,7 +66,7 @@ const { posts } = defineProps<Props>();
   .main-cnt
   {
     width:95%;
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 </style>

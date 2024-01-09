@@ -107,10 +107,7 @@
             <p class="text-uppercase secCaption">Recent Posts</p>
           </v-col>
         </v-row>
-
       </v-container>
-
-
     </v-layout>
 
     <PostIndex :posts="data?.contents" />
