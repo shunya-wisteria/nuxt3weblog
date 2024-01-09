@@ -133,6 +133,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     'nuxt-microcms-module',
     '@nuxtjs/sitemap',
+    'nuxt-gtag',
   ],
   vuetify: {
     vuetifyOptions: 'vuetify.config.ts'
@@ -162,6 +163,10 @@ export default defineNuxtConfig({
 
   site:{
     url: process.env.HOST_NAME,
+  },
+
+  gtag:{
+    id: process.env.GAID,
   },
 
   runtimeConfig: {
