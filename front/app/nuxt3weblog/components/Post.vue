@@ -84,6 +84,25 @@ const breadcrumbs: any = [
   },
 ]
 
+// インライン埋め込みブロックの初期読込
+loadIframelyScript().then(initializeIframely)
+function loadIframelyScript(){
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.iframe.ly/embed.js';
+    script.async = true;
+    script.onload = resolve;
+    document.head.appendChild(script);
+  });
+}
+function initializeIframely() {
+  // @ts-ignore
+  if (window.iframel) {
+    // @ts-ignore
+    window.iframely.load();
+  }
+}
+
 </script>
 
 <style scoped>
