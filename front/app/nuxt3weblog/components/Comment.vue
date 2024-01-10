@@ -1,8 +1,10 @@
 <template>
   <section class="post">
     <p class="comTitle">Comments</p>
-    <v-text-field label="お名前(必須)" required color="blue-grey lighten-1" v-model="input.name" variant="underlined"></v-text-field>
-    <v-text-field label="コメント(必須)" required color="blue-grey lighten-1" v-model="input.comment" variant="underlined"></v-text-field>
+    <v-text-field label="お名前(必須)" required color="blue-grey lighten-1" v-model="input.name"
+      variant="underlined"></v-text-field>
+    <v-text-field label="コメント(必須)" required color="blue-grey lighten-1" v-model="input.comment"
+      variant="underlined"></v-text-field>
     <v-btn depressed large color="blue-grey-lighten-2" width="100%" v-on:click="OnSend()">送信</v-btn>
 
     <v-container class="commentList">
@@ -20,17 +22,38 @@
 
 <script setup lang="ts">
 interface Props {
-  entryId:string,
+  entryId: string,
 }
-
+const config = useRuntimeConfig();
 const { entryId } = defineProps<Props>();
-
-const input = ref({name:"", comment:""})
+const input = ref({ name: "", comment: "" })
 
 const comments = ref(await useGetComments(entryId));
 
-const OnSend = ()=>{
-  window.alert("onsend : " + entryId)
+const OnSend = async () => {
+  if (input.value.name == "" || input.value.name == null) {
+    window.alert("お名前 を入力してください。")
+    return
+  }
+  else if (input.value.comment == "" || input.value.comment == null) {
+    window.alert("コメント を入力してください。")
+    return
+  }
+  const submitParams = new FormData()
+  submitParams.append(config.public.formNameField, input.value.name);
+  submitParams.append(config.public.formEmailField, "xxx@example.com");
+  submitParams.append(config.public.formCommentField, input.value.comment);
+  submitParams.append(config.public.formEmailField, entryId);
+
+  if(await usePostComment(submitParams))
+  {
+    window.alert("コメントを送信しました。");
+    input.value.name = "";
+    input.value.comment = "";
+    return;
+  }
+  window.alert("コメント送信に失敗しました。");
+  return;
 }
 
 

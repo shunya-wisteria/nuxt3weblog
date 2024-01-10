@@ -18,3 +18,26 @@ export async function useGetComments(entryID:string)
 
   return comments;
 }
+
+export async function usePostComment(formInput:any)
+{
+  const config = useRuntimeConfig();
+  const formId = config.public.comFormId;
+  const url = "https://docs.google.com/forms/d/e/" + formId + "/formResponse";
+
+  try {
+    await fetch(
+      url,
+      {
+        method: "POST",
+        headers: { "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Headers': '*', },
+        body : formInput
+      }
+    );
+
+    return true;
+
+  } catch (error) {
+    return false
+  }
+}

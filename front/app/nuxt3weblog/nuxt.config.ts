@@ -175,11 +175,12 @@ export default defineNuxtConfig({
       photomapUrl : process.env.PHOTOLOG_URL,
 
       comFormEnabled : process.env.COM_FORM_ENABLED,
+      comFormId : process.env.FORM_ID,
       formNameField : process.env.FORM_NAME_FIELD,
       formEmailField : process.env.FORM_EMAIL_FIELD,
       formCommentField : process.env.FORM_COMMENT_FIELD,
       formEntryidField : process.env.FORM_ENTRYID_FIELD,
-      comApiEndpoint : process.env.COM_API_ENDPOINT
+      comApiEndpoint : process.env.COM_API_ENDPOINT,
     }
   }
 })
