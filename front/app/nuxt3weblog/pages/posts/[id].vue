@@ -1,6 +1,7 @@
 <template>
   <template v-if="data">
     <Post :post="(data as Post)"></Post>
+    <Comment :entryId="data.id" />
   </template>
 </template>
 
