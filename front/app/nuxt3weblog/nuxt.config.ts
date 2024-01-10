@@ -22,6 +22,7 @@ const getPostRoutes = async () => {
   for(let i = 0; i < maxPage; i++){
     const offset = pageLimit * i;
     const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=id&limit=" + pageLimit + "&offset=" + offset;
+    console.log(url)
 
     const res = await fetch(
       url,
@@ -173,13 +174,6 @@ export default defineNuxtConfig({
       pageLimit: process.env.PAGE_LIMIT,
       metaOgUrl: process.env.META_OG_URL,
       photomapUrl : process.env.PHOTOLOG_URL,
-
-      comFormEnabled : process.env.COM_FORM_ENABLED,
-      formNameField : process.env.FORM_NAME_FIELD,
-      formEmailField : process.env.FORM_EMAIL_FIELD,
-      formCommentField : process.env.FORM_COMMENT_FIELD,
-      formEntryidField : process.env.FORM_ENTRYID_FIELD,
-      comApiEndpoint : process.env.COM_API_ENDPOINT
     }
   }
 })
