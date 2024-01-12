@@ -22,7 +22,6 @@ const getPostRoutes = async () => {
   for(let i = 0; i < maxPage; i++){
     const offset = pageLimit * i;
     const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=id&limit=" + pageLimit + "&offset=" + offset;
-    console.log(url)
 
     const res = await fetch(
       url,

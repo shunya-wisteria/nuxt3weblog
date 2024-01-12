@@ -1,6 +1,7 @@
 <template>
   <template v-if="data">
     <Post :post="(data as Post)"></Post>
+    <Comment :entryId="data.id" v-if="config.public.comFormEnabled == '1'"/>
   </template>
 </template>
 
