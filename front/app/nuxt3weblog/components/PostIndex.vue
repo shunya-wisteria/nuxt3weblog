@@ -11,10 +11,10 @@
               :elevation="isHovering ? 12 : 2"
               :class="{ 'on-hover': isHovering }"
               class="mx-auto"
-              height="400"
+              height="430"
               v-bind="props">
               <v-img
-                height="180px"
+                height="200px"
                 v-bind:src="post.eyecatch == null ? '/noimage.jpg' : post.eyecatch.url"
                 width=100%
                 cover
@@ -50,12 +50,15 @@ const { posts } = defineProps<Props>();
     color: #444;
     height: 80px;
     padding: 10px 16px;
+    white-space: unset;
+    margin-bottom: 5px;
   }
   .postAbstract
   {
     height:100px;
     padding: 0px 16px 5px 16px;
     font-weight: 300;
+    color: #737373;
   }
   .postFotter
   {

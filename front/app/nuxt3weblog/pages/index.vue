@@ -75,7 +75,7 @@
                         xl="6"
                       >
                         <div style="height:80px">
-                          <v-card-title class="text-left textarea">{{ pageInfo.pickupEntry?.title }}</v-card-title>
+                          <v-card-title class="text-left textarea" style="white-space: unset;">{{ pageInfo.pickupEntry?.title }}</v-card-title>
                         </div>
                         <v-card-text class="text-left textarea">{{ pageInfo.pickupEntry?.abstract }}</v-card-text>
                       </v-col>
