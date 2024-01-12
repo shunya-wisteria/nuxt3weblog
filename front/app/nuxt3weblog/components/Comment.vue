@@ -43,13 +43,16 @@ const OnSend = async () => {
   submitParams.append(config.public.formNameField, input.value.name);
   submitParams.append(config.public.formEmailField, "xxx@example.com");
   submitParams.append(config.public.formCommentField, input.value.comment);
-  submitParams.append(config.public.formEmailField, entryId);
+  submitParams.append(config.public.formEntryidField, entryId);
 
   if(await usePostComment(submitParams))
   {
     window.alert("コメントを送信しました。");
     input.value.name = "";
     input.value.comment = "";
+
+    comments.value = await useGetComments(entryId);
+
     return;
   }
   window.alert("コメント送信に失敗しました。");

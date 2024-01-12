@@ -26,14 +26,9 @@ export async function usePostComment(formInput:any)
   const url = "https://docs.google.com/forms/d/e/" + formId + "/formResponse";
 
   try {
-    await fetch(
-      url,
-      {
-        method: "POST",
-        headers: { "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Headers': '*', },
-        body : formInput
-      }
-    );
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.send(formInput);
 
     return true;
 
