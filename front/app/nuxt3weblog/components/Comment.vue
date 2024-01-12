@@ -24,11 +24,16 @@
 interface Props {
   entryId: string,
 }
+
+
 const config = useRuntimeConfig();
 const { entryId } = defineProps<Props>();
 const input = ref({ name: "", comment: "" })
 
-const comments = ref(await useGetComments(entryId));
+const comments = ref()
+useGetComments(entryId).then((comData) => {
+  comments.value = comData
+})
 
 const OnSend = async () => {
   if (input.value.name == "" || input.value.name == null) {
