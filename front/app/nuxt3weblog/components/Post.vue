@@ -8,7 +8,7 @@
           <span style="font-size:90%;" class="textarea">{{ dateTime(post?.publishedAt as string) }}</span>
         </v-col>
         <v-col cols="8" align="right" justify="center">
-          <v-chip v-for="(t, index) in (post.tags as any)" :key="index" :to="'/tags/' + t.id">
+          <v-chip v-for="(t, index) in (post.tags as any)" :key="index" :to="'/tags/' + t.id + '/'">
             <v-avatar left>
               <v-icon light style="padding-top:3px;">mdi-tag-outline</v-icon>
             </v-avatar>
@@ -37,7 +37,7 @@
 
     <v-breadcrumbs :items="(breadcrumbs)" style="padding:30px 5px 30px 5px;"></v-breadcrumbs>
 
-    <v-chip label v-bind:to="'/categories/' + (post.category == null ? '' : post.category.id)">
+    <v-chip label v-bind:to="'/categories/' + (post.category == null ? '' : post.category.id) + '/'">
       <v-avatar left><v-icon light>mdi-folder-outline</v-icon></v-avatar>
       {{ post.category == null ? "" : post.category.cat_name }}
     </v-chip>
@@ -75,7 +75,7 @@ const breadcrumbs: any = [
   {
     title: "Posts",
     disabled: false,
-    href: "/posts"
+    href: "/posts/"
   },
   {
     title: post.title,

@@ -73,27 +73,27 @@
         {
           icon: 'mdi-account-details-outline',
           title: 'About',
-          to: '/about'
+          to: '/about/'
         },
         {
           icon: 'mdi-folder-outline',
           title: 'Categories',
-          to: '/categories'
+          to: '/categories/'
         },
         {
           icon: 'mdi-tag-outline',
           title: 'Tags',
-          to: '/tags'
+          to: '/tags/'
         },
         {
           icon: 'mdi-map-marker-check-outline',
           title: 'PhotoMAP',
-          to: '/photomap'
+          to: '/photomap/'
         },
         {
           icon: 'mdi-at',
           title: 'Contact',
-          to: '/contact'
+          to: '/contact/'
         }
       ]
   )
