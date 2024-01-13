@@ -58,7 +58,7 @@
             <p class="text-uppercase secCaption">Pickup</p>
           </v-col>
           <v-col cols="12">
-            <nuxt-link :to="'/posts/' + pageInfo.pickupEntry?.id">
+            <nuxt-link :to="'/posts/' + pageInfo.pickupEntry?.id + '/'">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
                   <v-container>
@@ -117,7 +117,7 @@
         <v-row align="center" justigy="center">
           <v-col cols=12 align="center" style="margin-top:20px;">
             <p>
-              <nuxt-link to="/posts?page=2" class="more" style="font-size:120%;">Read More Posts</nuxt-link>
+              <nuxt-link to="/posts/?page=2" class="more" style="font-size:120%;">Read More Posts</nuxt-link>
             </p>
           </v-col>
         </v-row>

@@ -14,7 +14,7 @@
           <v-chip
             v-for="(t,index) in tag"
             :key="index"
-            v-bind:to="'/tags/' + t.id"
+            v-bind:to="'/tags/' + t.id + '/'"
             label
           >
             <v-avatar left>

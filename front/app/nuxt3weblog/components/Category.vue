@@ -14,7 +14,7 @@
           <v-chip
             v-for="(cat,index) in category"
             :key="index"
-            v-bind:to="'/categories/' + cat.id"
+            v-bind:to="'/categories/' + cat.id + '/'"
             label
           >
             <v-avatar left>

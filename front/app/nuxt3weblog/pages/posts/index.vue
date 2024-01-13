@@ -34,7 +34,7 @@ const refresh = (post:any) =>
 const OnPaging = () => {
   const router = useRouter();
   router.push({
-    path : "/posts",
+    path : "/posts/",
     query: {page: page.value}
   })
 }
