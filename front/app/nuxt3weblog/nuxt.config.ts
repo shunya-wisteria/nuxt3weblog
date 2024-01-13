@@ -162,6 +162,7 @@ export default defineNuxtConfig({
 
   site:{
     url: process.env.HOST_NAME,
+    trailingSlash: true
   },
 
   gtag:{
