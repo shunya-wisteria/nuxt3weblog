@@ -2,15 +2,15 @@
   <section class="post">
     <p class="comTitle">Comments</p>
     <v-text-field label="お名前(必須)" required color="blue-grey lighten-1" v-model="input.name"
-      variant="underlined"></v-text-field>
+      variant="underlined" class="textarea"></v-text-field>
     <v-text-field label="コメント(必須)" required color="blue-grey lighten-1" v-model="input.comment"
-      variant="underlined"></v-text-field>
+      variant="underlined" class="textarea"></v-text-field>
     <v-btn depressed large color="blue-grey-lighten-2" width="100%" v-on:click="OnSend()">送信</v-btn>
 
     <v-container class="commentList">
       <v-row>
         <v-col cols="12" class="comment" v-for="(comment, index) in comments" :key="index">
-          <p class="commentBody">{{ comment.comment }}</p>
+          <p class="commentBody textarea">{{ comment.comment }}</p>
           <p class="commentFooter">{{ comment.name }} - {{ dateTime(comment.tstmp) }}</p>
         </v-col>
       </v-row>
