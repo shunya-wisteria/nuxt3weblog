@@ -33,7 +33,7 @@ const getPostRoutes = async () => {
       }
     );
     const id = (await res.json()).contents;
-    if(id.length == 0)
+    if(ids.length == 0)
     {
       ids = id
     }

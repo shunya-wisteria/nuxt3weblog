@@ -68,6 +68,9 @@ h3{
   font-size:100%;
   line-height: 180%;
 }
+.post p{
+  margin: 10px 0px;
+}
 .post img {
   width:100%;
   height: auto;
@@ -87,10 +90,11 @@ h3{
 
 .post ul{
   margin: 15px 30px;
-}
-
-.post li{
   list-style-type : circle;
+}
+.post ol{
+  margin: 15px 30px;
+  list-style-type: decimal;
 }
 
 .post pre{
@@ -114,6 +118,10 @@ h3{
   margin: 20px 0px;
 }
 
+.post hr{
+  margin:30px 0px;
+}
+
 .theme--light.v-application code{
   background-color: #f1f1f1;
   font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
@@ -132,4 +140,8 @@ h3{
   display: block;
   font-size:100%;
   line-height: 180%;
+}
+
+.iframely-embed{
+  margin:20px 0px;
 }
