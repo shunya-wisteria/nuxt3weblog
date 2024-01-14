@@ -116,6 +116,22 @@ h3{
 
 .post table{
   margin: 20px 0px;
+  border-collapse: collapse;
+}
+.post td{
+  padding: 0px 15px;
+  border: solid 1px #737373;
+}
+.post th{
+  padding: 0px 15px;
+  border: solid 1px #737373;
+  background-color: #dcdcdc;
+}
+.post th p{
+  margin: 5px 0px;
+}
+.post td p{
+  margin: 5px 0px;
 }
 
 .post hr{
