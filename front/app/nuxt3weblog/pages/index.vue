@@ -141,6 +141,10 @@ const { data } = await useMicroCMSGetList<Post>({
 
 const pageInfo = ref(useState('PageInfo') as PageInfo);
 
+useHead({
+  title:pageInfo.value.title
+});
+
 </script>
 
 <style scoped>

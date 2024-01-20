@@ -52,6 +52,7 @@ const { posts } = defineProps<Props>();
     padding: 10px 16px;
     white-space: unset;
     margin-bottom: 5px;
+    margin-top: 3px;
   }
   .postAbstract
   {
