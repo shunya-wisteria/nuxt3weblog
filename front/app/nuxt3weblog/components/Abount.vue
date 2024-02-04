@@ -25,6 +25,7 @@
       </p>
     </div>
 
+    <v-breadcrumbs :items="(breadcrumbs)" style="padding:30px 5px 30px 5px;"></v-breadcrumbs>
   </section>
 </template>
 
@@ -37,6 +38,18 @@ interface Props{
 
 const { about } = defineProps<Props>();
 
+const breadcrumbs: any = [
+  {
+    title: "Home",
+    disabled: false,
+    href: "/"
+  },
+  {
+    title: "About",
+    disabled: true,
+    href: ""
+  },
+]
 </script>
 
 <style scoped>
