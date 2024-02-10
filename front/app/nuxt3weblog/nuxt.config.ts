@@ -107,6 +107,7 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { hid: 'description', name: 'description', content: process.env.META_DESCRIPTION },
+        { hid: 'theme-color', name: 'theme-color', content: '#E8E8EF'},
   
         { hid: 'og:site_name', property: 'og:site_name', content: process.env.SITE_TITLE },
         { hid: 'og:type', property: 'og:type', content: 'website' },
