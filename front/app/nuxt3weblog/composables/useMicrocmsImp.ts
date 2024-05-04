@@ -57,3 +57,12 @@ export async function useGetTags() {
 
   return data.value?.contents;
 }
+
+export  async function useGetTag(tagId:string){
+  const { data } = await useMicroCMSGetListDetail<Tag>({
+    endpoint: "tags",
+    contentId: tagId
+  })
+
+  return data?.value
+}
