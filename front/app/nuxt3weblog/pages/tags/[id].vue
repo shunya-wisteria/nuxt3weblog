@@ -1,10 +1,12 @@
 <template>
-  <h1>{{ tag }}</h1>
+  <h1>{{ tagName }}</h1>
   <PostIndex :posts="posts"/>
   <v-pagination v-model="page" :length="maxPage" v-on:click="OnPaging" rounded="rounded-lg" color="#7D8692"></v-pagination>
 </template>
 
 <script setup>
+import { useGetTag } from '~/composables/useMicrocmsImp';
+
 const { params, query } = useRoute();
 const config = useRuntimeConfig();
 
@@ -25,6 +27,9 @@ for(let i = 0; i<maxPage.value; i++)
 }
 const posts = ref(postsData[page.value - 1]);
 
+const tagObj = await useGetTag(tag.value)
+const tagName = ref(tagObj.name)
+
 const refresh = (post) =>
 {
   scrollTo(0, 0)
@@ -41,7 +46,7 @@ const OnPaging = () => {
 }
 
 useHead({
-  title:"Tag : " + tag.value
+  title:"Tag : " + tagName.value
 })
 
 watch(() => page.value, ()=> {refresh(postsData[page.value - 1])})
