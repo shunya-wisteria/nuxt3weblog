@@ -27,8 +27,7 @@ for(let i = 0; i<maxPage.value; i++)
 }
 const posts = ref(postsData[page.value - 1]);
 
-const tagObj = await useGetTag(tag.value)
-const tagName = ref(tagObj.name)
+const tagName = ref((await useGetTag(tag.value)).name)
 
 const refresh = (post) =>
 {
