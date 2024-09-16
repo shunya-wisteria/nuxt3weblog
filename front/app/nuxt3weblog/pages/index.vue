@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-img position="center center" :src="pageInfo.portalEyecatch?.url" rel="preload" height="350px" cover>
+    <v-img position="bottom center" :src="pageInfo.portalEyecatch?.url" rel="preload" height="350px" cover>
       <v-row class="fill-height" justify="center" align="center">
         <div class="introMsg">{{ pageInfo.portalEyecatchCom }}</div>
       </v-row>
