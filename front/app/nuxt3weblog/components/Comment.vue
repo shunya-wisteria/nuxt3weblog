@@ -78,8 +78,8 @@ const OnSend = async () => {
 }
 
 .comment {
-  background-color: #f5f5f5;
-  border: solid 1px #ececec;
+  background-color: rgb(var(--v-theme-comment_bg));
+  border: solid 1px rgb(var(--v-theme-comment_border));
   border-radius: 5px;
   padding: 10px;
   margin: 5px 0px;

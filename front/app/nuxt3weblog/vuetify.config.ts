@@ -29,8 +29,9 @@ export default defineVuetifyConfiguration({
           th_bg:'#e9e9e9',
           filter:'#bbbbbb',
           footer_bg: '#F5F5F5',
-          footer_text: '#555555'
-
+          footer_text: '#555555',
+          comment_bg: '#f5f5f5',
+          comment_border: '#ececec'
         },
       },
       dark: {
@@ -51,11 +52,13 @@ export default defineVuetifyConfiguration({
           img_border: '#151515',
           code_bg: '#202020',
           code_text: '#FFFFFF',
-          toc_bg:'#202020',
-          th_bg:'#202020',
+          toc_bg:'#252525',
+          th_bg:'#252525',
           filter:'#151515',
           footer_bg: '#212121',
-          footer_text: '#FFFFFF'
+          footer_text: '#FFFFFF',
+          comment_bg: '#252525',
+          comment_border: '#303030'
         },
       }
     }
