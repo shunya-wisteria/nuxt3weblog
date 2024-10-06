@@ -1,5 +1,5 @@
 <template>
-  <section class="post">
+  <section class="postframe post">
     <p class="comTitle">Comments</p>
     <v-text-field label="お名前(必須)" required color="blue-grey lighten-1" v-model="input.name"
       variant="underlined" class="textarea"></v-text-field>

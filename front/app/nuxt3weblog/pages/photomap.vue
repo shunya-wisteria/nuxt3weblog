@@ -1,5 +1,5 @@
 <template>
-  <section class="post">
+  <section class="postframe post">
     <h1 class="textarea">Photomap</h1>
     <p>最近、訪問した場所の記録。</p>
 
