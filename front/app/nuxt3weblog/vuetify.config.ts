@@ -45,14 +45,14 @@ export default defineVuetifyConfiguration({
 
           page_title:'#FFFFFF',
           menu_text:'#FFFFFF',
-          background:'#252525',
+          background:'#303030',
           main_text: '#FFFFFF',
           post_title: '#FFFFFF',
           img_border: '#151515',
-          code_bg: '#000000',
+          code_bg: '#202020',
           code_text: '#FFFFFF',
           toc_bg:'#202020',
-          th_bg:'#151515',
+          th_bg:'#202020',
           filter:'#151515',
           footer_bg: '#212121',
           footer_text: '#FFFFFF'
