@@ -70,7 +70,7 @@ const OnSend = async () => {
 <style scoped>
 .comTitle {
   font-size: 120%;
-  color: #444;
+  color: rgb(var(--v-theme-post_title));
 }
 
 .commentList {

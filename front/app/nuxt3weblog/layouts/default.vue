@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" :theme="theme" class="bg-background text-main_text">
     <v-navigation-drawer
       expand-on-hover
       :rail="!mdAndDown"
@@ -12,9 +12,9 @@
           :to="item.to"
         >
           <template v-slot:prepend>
-            <v-icon :icon="item.icon" style="color:rgba(0, 0, 0, 0.87)" />
+            <v-icon :icon="item.icon" style="color:rgb(var(--v-theme-menu_text));" />
           </template>
-          <v-list-item-title v-text="item.title" style="color:rgba(0, 0, 0, 0.87)"></v-list-item-title>
+          <v-list-item-title v-text="item.title" style="color:rgb(var(--v-theme-menu_text));"></v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -23,12 +23,16 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" v-if="mdAndDown"></v-app-bar-nav-icon>
       <v-app-bar-title>
         <span class="headline">
-          <nuxt-link to="/" style="color:rgba(0, 0, 0, 0.87);border-bottom:none;">
+          <nuxt-link to="/" style="color:inherit;border-bottom:none;">
             {{ pageInfo.title }}
           </nuxt-link>
         </span>
         <span class="subTitle">{{ pageInfo.subTitle }}</span>
       </v-app-bar-title>
+      <template v-slot:append>
+        <v-switch v-model="darkMode" @change="changeDarkMode" style="margin-top:25px; margin-right: 5px;;"></v-switch>
+        <v-icon>mdi-weather-night</v-icon> 
+      </template> 
     </v-app-bar>
 
     <v-main>
@@ -62,6 +66,41 @@
   const pageInfo = useState<PageInfo>('PageInfo', ()=>{
     return data.value as PageInfo
   })
+
+  const theme = ref('light')
+  const darkMode = ref(false)
+
+  onMounted(() => {
+    // システムのダークモード設定を確認
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      theme.value = 'dark'
+      darkMode.value = true
+    }
+
+    // ローカルストレージ上のダークモード設定を確認
+    const disMode = localStorage.getItem("display_mode")
+    if(disMode == 'light' || disMode == 'dark')
+    {
+      theme.value = disMode 
+    }
+    if(disMode == 'dark')
+    {
+      darkMode.value = true
+    }
+  })
+
+  const changeDarkMode = () =>
+  {
+    if(darkMode.value)
+    {
+      theme.value = 'dark'
+    }
+    else
+    {
+      theme.value = 'light'
+    }
+    localStorage.setItem("display_mode", theme.value)
+  }
 
   const menuItem = ref(
     [
@@ -110,7 +149,7 @@
 
 <style scoped>
 .headline{
-  color: rgba(0, 0, 0, 0.87);
+  color: rgb(var(--v-theme-page_title));
   font-family: Roboto,sans-serif!important;
   font-size: 1.5rem!important;
   font-weight: 400;
@@ -152,7 +191,7 @@
 {
   font-family: "Roboto", 'Open Sans', Segoe UI, "メイリオ", Meiryo, sans-serif;
   font-weight: 600;
-  color: #555555;
-  background-color: #f5f5f5;
+  color: rgb(var(--v-theme-footer_text));
+  background-color: rgb(var(--v-theme-footer_bg));
 }
 </style>

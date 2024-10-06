@@ -47,7 +47,7 @@ const { posts } = defineProps<Props>();
     font-size:120%;
     font-weight: 300;
     line-height: 150%;
-    color: #444;
+    color: rgb(var(--v-theme-post_title));
     height: 80px;
     padding: 10px 16px;
     white-space: unset;
@@ -59,7 +59,7 @@ const { posts } = defineProps<Props>();
     height:100px;
     padding: 0px 16px 5px 16px;
     font-weight: 300;
-    color: #737373;
+    color: rgb(var(--v-theme-main_text));
   }
   .postFotter
   {

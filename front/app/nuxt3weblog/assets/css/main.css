@@ -1,12 +1,10 @@
 .v-application{
   font-family: 'Open Sans','Rounded Mplus 1c', Segoe UI, "メイリオ", Meiryo, sans-serif;
   font-weight: 100;
-  color: #737373 !important;
-  background-color: #F9F9F9 !important;
 }
 
 .v-application a, .v-application a:hover {
-  color: #737373;
+  color: inherit;
   text-decoration: none;
   border-bottom: 1px solid #dcdcdc;
 }
@@ -22,7 +20,7 @@
 
 h1{
   font-family: 'Open Sans', Segoe UI, "メイリオ", Meiryo, sans-serif;
-  color: #444;
+  color: rgb(var(--v-theme-post_title));
   font-size: 24px;
   font-weight: normal;
   text-align: center;
@@ -32,7 +30,7 @@ h1{
 
 h2{
   font-family: 'Open Sans', Segoe UI, "メイリオ", Meiryo, sans-serif;
-  color: #444;
+  color: rgb(var(--v-theme-post_title));
   font-size: 24px;
   font-weight: normal;
   text-align: center;
@@ -40,7 +38,7 @@ h2{
 }
 
 h3{
-  color: #444;
+  color: rgb(var(--v-theme-post_title));
   font-size: 20px;
   font-weight: normal;
   margin : 30px 0px 10px 0px;
@@ -50,7 +48,7 @@ h3{
   border-radius: 4px !important;
   margin:5px 5px;
   font-size: 80%;
-  color: #444 !important;
+  color: rgb(var(--v-theme-post_title));
   padding: 15px 15px 15px 10px !important;
 }
 
@@ -75,10 +73,10 @@ h3{
   width:100%;
   height: auto;
   max-width: 1200px; 
-  border:1px solid #DDDDDD;
+  border:1px solid rgb(var(--v-theme-img_border));
   margin: 0 auto;
   margin-top:10px;
-  filter: drop-shadow(5px 5px 5px #BBB);
+  filter: drop-shadow(2px 2px 4px rgb(var(--v-theme-filter)));
 }
 
 .post blockquote{
@@ -98,10 +96,10 @@ h3{
 }
 
 .post pre{
-  background-color:#f1f1f1;
+  background-color:rgb(var(--v-theme-code_bg));
   border-radius: 2px;
   border: solid 1px #d5d5d5;
-  filter: drop-shadow(2px 2px 4px #bbbbbb);
+  filter: drop-shadow(2px 2px 4px rgb(var(--v-theme-filter)));
   line-height: 130%;
 
   width: 95%;
@@ -116,7 +114,7 @@ h3{
 .post code{
   font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
   font-size: 90%;
-  color: #444444;
+  color:rgb(var(--v-theme-code_text));
 }
 
 .post table{
@@ -130,7 +128,7 @@ h3{
 .post th{
   padding: 0px 15px;
   border: solid 1px #737373;
-  background-color: #e9e9e9;
+  background-color: rgb(var(--v-theme-th_bg));
 }
 .post th p{
   margin: 5px 0px;
