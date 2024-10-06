@@ -29,7 +29,10 @@
         </span>
         <span class="subTitle">{{ pageInfo.subTitle }}</span>
       </v-app-bar-title>
-      <v-btn @click="toggleTheme">toggle theme</v-btn>
+      <template v-slot:append>
+        <v-switch v-model="darkMode" @change="changeDarkMode" style="margin-top:25px; margin-right: 5px;;"></v-switch>
+        <v-icon>mdi-weather-night</v-icon> 
+      </template> 
     </v-app-bar>
 
     <v-main>
@@ -65,7 +68,39 @@
   })
 
   const theme = ref('light')
-  const toggleTheme = () => theme.value = theme.value === 'light' ? 'dark' : 'light'
+  const darkMode = ref(false)
+
+  onMounted(() => {
+    // システムのダークモード設定を確認
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      theme.value = 'dark'
+      darkMode.value = true
+    }
+
+    // ローカルストレージ上のダークモード設定を確認
+    const disMode = localStorage.getItem("display_mode")
+    if(disMode == 'light' || disMode == 'dark')
+    {
+      theme.value = disMode 
+    }
+    if(disMode == 'dark')
+    {
+      darkMode.value = true
+    }
+  })
+
+  const changeDarkMode = () =>
+  {
+    if(darkMode.value)
+    {
+      theme.value = 'dark'
+    }
+    else
+    {
+      theme.value = 'light'
+    }
+    localStorage.setItem("display_mode", theme.value)
+  }
 
   const menuItem = ref(
     [
