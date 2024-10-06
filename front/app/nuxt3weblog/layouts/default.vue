@@ -30,8 +30,7 @@
         <span class="subTitle">{{ pageInfo.subTitle }}</span>
       </v-app-bar-title>
       <template v-slot:append>
-        <v-switch v-model="darkMode" @change="changeDarkMode" style="margin-top:25px; margin-right: 5px;;"></v-switch>
-        <v-icon>mdi-weather-night</v-icon> 
+        <v-switch v-model="darkMode" @change="changeDarkMode" style="margin-top:25px; margin-right: 5px;" :append-icon="themeIcon"></v-switch>
       </template> 
     </v-app-bar>
 
@@ -69,6 +68,10 @@
 
   const theme = ref('light')
   const darkMode = ref(false)
+
+  const themeIcon = computed(()=>{
+    return darkMode.value ? 'mdi-weather-night' : 'mdi-weather-sunny'
+  })
 
   onMounted(() => {
     // システムのダークモード設定を確認
