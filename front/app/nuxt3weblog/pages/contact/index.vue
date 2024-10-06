@@ -1,5 +1,5 @@
 <template>
-  <section class="post">
+  <section class="postframe post">
     <h1>Contact</h1>
 
     <div style="margin:20px 0px;">

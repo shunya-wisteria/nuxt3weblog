@@ -1,5 +1,5 @@
 <template>
-  <section class="about">
+  <section class="postframe about">
     <h1 class="textarea">About</h1>
     <div v-html="about.about" class="textarea" />
 

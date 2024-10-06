@@ -12,7 +12,7 @@
     </v-app-bar>
 
     <v-main>
-      <section class="post" style="height: 600px;">
+      <section class="postframe post" style="height: 600px;">
         <h1>{{ statusCode }}</h1>
         <p class="text-center erMsg">{{ message }}</p>
         <p class="text-center erLink">

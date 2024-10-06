@@ -1,5 +1,5 @@
 <template>
-  <section class="post">
+  <section class="postframe post">
     <h1 class="textarea">Categories</h1>
 
     <v-layout
