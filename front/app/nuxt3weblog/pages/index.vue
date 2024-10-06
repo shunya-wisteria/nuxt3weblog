@@ -160,7 +160,7 @@ useHead({
 }
 
 .secCaption {
-  color: #444;
+  color: rgb(var(--v-theme-post_title));
   font-size: 24px;
   font-weight: 400;
   display: flex;

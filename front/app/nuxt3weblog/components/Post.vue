@@ -24,7 +24,7 @@
     </div>
 
     <div v-if="post.toc" class="textarea">
-      <ul class="tocs blue-grey lighten-5">
+      <ul class="tocs bg-toc_bg text-main_text">
         <span style="font-weight:600; font-size:120%;">目次</span>
         <li v-for="item in toc" :key="item.id" :class="'toc toc_' + item.name">
           <a :href="'#' + item.id" v-smooth-scroll="{ duration: 1000, offset: -90, updateHistory: false }">{{ item.text
@@ -107,9 +107,8 @@ function initializeIframely() {
 
 <style scoped>
 .tocs {
-  background-color: #eceff1 !important;
   border-radius: 2px;
-  filter: drop-shadow(3px 3px 3px #bbbbbb);
+  filter: drop-shadow(2px 2px 4px rgb(var(--v-theme-filter)));
   padding: 15px 20px;
   margin: 20px 8px;
   width: 95%;
