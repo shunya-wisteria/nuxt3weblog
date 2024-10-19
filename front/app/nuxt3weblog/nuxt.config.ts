@@ -80,8 +80,8 @@ const getCategories = async () => {
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
-
   ssr: true,
+
   hooks: {
     async 'nitro:config'(nitroConfig) {
       const slugs = await getPostRoutes();
@@ -127,6 +127,7 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
+
   // @ts-ignore
   modules: [
     'vuetify-nuxt-module',
@@ -135,9 +136,11 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     'nuxt-gtag',
   ],
+
   vuetify: {
     vuetifyOptions: 'vuetify.config.ts'
   },
+
   googleFonts: {
     families: {
       'Open Sans': true,
@@ -145,6 +148,7 @@ export default defineNuxtConfig({
       'Roboto': true
     }
   },
+
   microCMS: {
     serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
     apiKey: process.env.MICROCMS_API_KEY,
@@ -184,5 +188,7 @@ export default defineNuxtConfig({
       formEntryidField : process.env.FORM_ENTRYID_FIELD,
       comApiEndpoint : process.env.COM_API_ENDPOINT,
     }
-  }
+  },
+
+  compatibilityDate: '2024-10-19'
 })
