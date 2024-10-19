@@ -69,6 +69,9 @@ h3{
 .post p{
   margin: 10px 0px;
 }
+.post b, strong{
+  font-weight: 600  ;
+}
 .post img {
   width:100%;
   height: auto;
