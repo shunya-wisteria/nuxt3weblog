@@ -8,22 +8,13 @@
 const { params, query } = useRoute();
 const config = useRuntimeConfig();
 
-const page = ref(Number(query.page) ? Number(query.page) : 1);
+const page = ref(1);
 const category = ref(params.id);
 const pageLimit = Number(config.public.pageLimit) > 0 ? Number(config.public.pageLimit) : 5;
-
-const postsData = [];
-
 const totalCount = await useGetPostsCount({limit:1, offset:0, filters:"category[equals]" + category.value},{key:"categoryCnt-" + category.value})
-
 const maxPage = ref(Math.ceil(totalCount / pageLimit));
-for(let i = 0; i<maxPage.value; i++)
-{
-  const posts = await useGetPostsPerPage(i, pageLimit, "", category.value)
-  postsData.push(posts)
 
-}
-const posts = ref(postsData[page.value - 1]);
+const posts = ref(await useGetPostsPerPage(page.value - 1, pageLimit, "", category.value));
 
 const refresh = (post) =>
 {
@@ -35,15 +26,12 @@ const refresh = (post) =>
 const OnPaging = () => {
   const router = useRouter();
   router.push({
-    path : "/categories/" + category.value,
-    query: {page: page.value}
+    path : "/categories/" + category.value + "/" + page.value
   })
 }
 
 useHead({
   title:"Category : " + category.value
 })
-
-watch(() => page.value, ()=> {refresh(postsData[page.value - 1])})
 
 </script>
