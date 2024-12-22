@@ -82,6 +82,7 @@ const getTags = async () => {
   return id.map((obj: { id: string }) => `/tags/${obj.id}`);
 }
 
+// カテゴリListルート取得
 const getCategories = async () => {
   const apiKey = process.env.MICROCMS_API_KEY;
   const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/categories?field=id&limit=100";
@@ -95,7 +96,26 @@ const getCategories = async () => {
     }
   );
   const id = (await res.json()).contents;
-  return id.map((obj: { id: string }) => `/categories/${obj.id}`);
+
+  const routeList = [];
+  // カテゴリ毎にページングルート作成
+  for(let i = 0; i < id.length; i++)
+  {
+    // index用ルート
+    routeList.push({id: id[i].id, page: ""});
+    // 対象post件数
+    const totalCount = await getPostCount("posts", "category[equals]" + id[i].id);
+    // 1ページ当たりのpost数
+    const pageLimit = Number(process.env.PAGE_LIMIT) > 0 ? Number(process.env.PAGE_LIMIT) : 1;
+    // ページ数
+    const maxPage = Math.ceil(totalCount / pageLimit);
+    for(let j = 0; j < maxPage; j++)
+    {
+      routeList.push({id: id[i].id, page: (j+1).toString()});
+    }
+  }
+
+  return routeList.map((obj:{id : string, page : string}) => `/categories/${obj.id}/${obj.page}`)
 }
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
