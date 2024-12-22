@@ -45,6 +45,29 @@ const getPostRoutes = async () => {
   return ids.map((obj: { id: string }) => `/posts/${obj.id}`);
 }
 
+const getPostsList = async () => {
+  const apiKey = process.env.MICROCMS_API_KEY;
+  const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=totalCount&limit=1";
+  const res = await fetch(
+    url,
+    {
+      method: "GET",
+      headers: {
+        'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
+      }
+    }
+  );
+  const totalCount = (await res.json()).totalCount;
+  const pageLimit = Number(process.env.PAGE_LIMIT) > 0 ? Number(process.env.PAGE_LIMIT) : 1;
+  const maxPage = Math.ceil(totalCount / pageLimit);
+  const pageList = [];
+  for(let i = 0; i < maxPage; i++)
+  {
+    pageList.push({page:(i+1).toString()});
+  }
+  return pageList.map((obj:{page:string}) => `/postsList/${obj.page}`);
+}
+
 const getTags = async () => {
   const apiKey = process.env.MICROCMS_API_KEY;
   const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/tags?field=id&limit=100";
@@ -86,6 +109,9 @@ export default defineNuxtConfig({
     async 'nitro:config'(nitroConfig) {
       const slugs = await getPostRoutes();
       nitroConfig.prerender?.routes?.push(...slugs);
+
+      const postList = await getPostsList();
+      nitroConfig.prerender?.routes?.push(...postList);
 
       const tags = await getTags();
       nitroConfig.prerender?.routes?.push(...tags);
