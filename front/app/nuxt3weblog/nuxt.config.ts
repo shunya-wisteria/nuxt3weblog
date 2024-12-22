@@ -1,13 +1,11 @@
 import { Static } from "vue";
 
-const getPostRoutes = async () => {
-  const pageLimit = 10;
-  const apiKey = process.env.MICROCMS_API_KEY
-
-  // Get Posts count
-  const cntUrl = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=id&limit=" + 0;
-  const cntRes = await fetch(
-    cntUrl,
+// Post件数取得
+const getPostCount = async (endpoint:string, filters:string) => {
+  const apiKey = process.env.MICROCMS_API_KEY;
+  const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/" + endpoint + "?field=totalCount&limit=1&filters=" + filters;
+  const res = await fetch(
+    url,
     {
       method: "GET",
       headers: {
@@ -15,7 +13,17 @@ const getPostRoutes = async () => {
       }
     }
   );
-  const totalCount = (await cntRes.json()).totalCount;
+  const totalCount = (await res.json()).totalCount;
+  return totalCount;
+}
+
+// Postルート取得
+const getPostRoutes = async () => {
+  const pageLimit = 10;
+  const apiKey = process.env.MICROCMS_API_KEY
+
+  // Get Posts count
+  const totalCount = await getPostCount("posts", "");
   const maxPage = Math.ceil(totalCount / pageLimit);
 
   let ids: any = [];
@@ -43,6 +51,19 @@ const getPostRoutes = async () => {
     }
   }
   return ids.map((obj: { id: string }) => `/posts/${obj.id}`);
+}
+
+// PostListルート取得
+const getPostsList = async () => {
+  const totalCount = await getPostCount("posts", "");
+  const pageLimit = Number(process.env.PAGE_LIMIT) > 0 ? Number(process.env.PAGE_LIMIT) : 1;
+  const maxPage = Math.ceil(totalCount / pageLimit);
+  const pageList = [];
+  for(let i = 0; i < maxPage; i++)
+  {
+    pageList.push({page:(i+1).toString()});
+  }
+  return pageList.map((obj:{page:string}) => `/postsList/${obj.page}`);
 }
 
 const getTags = async () => {
@@ -86,6 +107,9 @@ export default defineNuxtConfig({
     async 'nitro:config'(nitroConfig) {
       const slugs = await getPostRoutes();
       nitroConfig.prerender?.routes?.push(...slugs);
+
+      const postList = await getPostsList();
+      nitroConfig.prerender?.routes?.push(...postList);
 
       const tags = await getTags();
       nitroConfig.prerender?.routes?.push(...tags);
