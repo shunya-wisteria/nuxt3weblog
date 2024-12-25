@@ -13,7 +13,8 @@
             <p class="text-uppercase secCaption">Quick Menu</p>
           </v-col>
           <v-col cols="4" class="topLinkColLeft">
-            <a :href="pageInfo.topLink1?.url" :target="pageInfo.topLink1?.external ? '_blank' : '_self'">
+            <a :href="pageInfo.topLink1?.url" target="_blank" v-if="pageInfo.topLink1?.external">
+            <nuxt-link :to="pageInfo.topLink1?.url" v-if="!pageInfo.topLink1?.external"></nuxt-link>
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
                   <v-img :src="pageInfo.topLink1?.photo?.url" class="align-end" height="150" cover>
@@ -23,10 +24,20 @@
                 </v-card>
               </v-hover>
             </a>
+            <nuxt-link :to="pageInfo.topLink1?.url" v-if="!pageInfo.topLink1?.external">
+              <v-hover v-slot="{ isHovering, props }" open-delay="80">
+                <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
+                  <v-img :src="pageInfo.topLink1?.photo?.url" class="align-end" height="150" cover>
+                    <v-card-title class="text-white text-left topLinkText"
+                      v-text="pageInfo.topLink1?.title"></v-card-title>
+                  </v-img>
+                </v-card>
+              </v-hover>
+            </nuxt-link>
           </v-col>
 
           <v-col cols="4" class="topLinkColCenter">
-            <a :href="pageInfo.topLink2?.url" :target="pageInfo.topLink2?.external ? '_blank' : '_self'">
+            <a :href="pageInfo.topLink2?.url"  target="_blank" v-if="pageInfo.topLink2?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
                   <v-img :src="pageInfo.topLink2?.photo?.url" class="align-end" height="150" cover>
@@ -36,10 +47,20 @@
                 </v-card>
               </v-hover>
             </a>
+            <nuxt-link :to="pageInfo.topLink2?.url" v-if="!pageInfo.topLink2?.external">
+              <v-hover v-slot="{ isHovering, props }" open-delay="80">
+                <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
+                  <v-img :src="pageInfo.topLink2?.photo?.url" class="align-end" height="150" cover>
+                    <v-card-title class="text-white text-left topLinkText"
+                      v-text="pageInfo.topLink2?.title"></v-card-title>
+                  </v-img>
+                </v-card>
+              </v-hover>
+            </nuxt-link>
           </v-col>
 
           <v-col cols="4" class="topLinkColRight">
-            <a :href="pageInfo.topLink3?.url" :target="pageInfo.topLink3?.external ? '_blank' : '_self'">
+            <a :href="pageInfo.topLink3?.url" target="_blank" v-if="pageInfo.topLink2?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
                   <v-img :src="pageInfo.topLink3?.photo?.url" class="align-end" height="150" cover>
@@ -49,6 +70,16 @@
                 </v-card>
               </v-hover>
             </a>
+            <nuxt-link :to="pageInfo.topLink3?.url" v-if="!pageInfo.topLink3?.external">
+              <v-hover v-slot="{ isHovering, props }" open-delay="80">
+                <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
+                  <v-img :src="pageInfo.topLink3?.photo?.url" class="align-end" height="150" cover>
+                    <v-card-title class="text-white text-left topLinkText"
+                      v-text="pageInfo.topLink3?.title"></v-card-title>
+                  </v-img>
+                </v-card>
+              </v-hover>
+            </nuxt-link>
           </v-col>
 
         </v-row>
