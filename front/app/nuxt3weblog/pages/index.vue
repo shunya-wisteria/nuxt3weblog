@@ -60,7 +60,7 @@
           </v-col>
 
           <v-col cols="4" class="topLinkColRight">
-            <a :href="pageInfo.topLink3?.url" target="_blank" v-if="pageInfo.topLink2?.external">
+            <a :href="pageInfo.topLink3?.url" target="_blank" v-if="pageInfo.topLink3?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
                   <v-img :src="pageInfo.topLink3?.photo?.url" class="align-end" height="150" cover>
