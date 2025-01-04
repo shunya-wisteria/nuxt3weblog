@@ -1,142 +1,4 @@
-import { Static } from "vue";
-
-// Post件数取得
-const getPostCount = async (endpoint:string, filters:string) => {
-  const apiKey = process.env.MICROCMS_API_KEY;
-  const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/" + endpoint + "?field=totalCount&limit=1&filters=" + filters;
-  const res = await fetch(
-    url,
-    {
-      method: "GET",
-      headers: {
-        'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
-      }
-    }
-  );
-  const totalCount = (await res.json()).totalCount;
-  return totalCount;
-}
-
-// Postルート取得
-const getPostRoutes = async () => {
-  const pageLimit = 10;
-  const apiKey = process.env.MICROCMS_API_KEY
-
-  // Get Posts count
-  const totalCount = await getPostCount("posts", "");
-  const maxPage = Math.ceil(totalCount / pageLimit);
-
-  let ids: any = [];
-  for(let i = 0; i < maxPage; i++){
-    const offset = pageLimit * i;
-    const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/posts?field=id&limit=" + pageLimit + "&offset=" + offset;
-
-    const res = await fetch(
-      url,
-      {
-        method: "GET",
-        headers: {
-          'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
-        }
-      }
-    );
-    const id = (await res.json()).contents;
-    if(ids.length == 0)
-    {
-      ids = id
-    }
-    else
-    {
-      ids = ids.concat(id)
-    }
-  }
-  return ids.map((obj: { id: string }) => `/posts/${obj.id}`);
-}
-
-// PostListルート取得
-const getPostsList = async () => {
-  const totalCount = await getPostCount("posts", "");
-  const pageLimit = Number(process.env.PAGE_LIMIT) > 0 ? Number(process.env.PAGE_LIMIT) : 1;
-  const maxPage = Math.ceil(totalCount / pageLimit);
-  const pageList = [];
-  for(let i = 0; i < maxPage; i++)
-  {
-    pageList.push({page:(i+1).toString()});
-  }
-  return pageList.map((obj:{page:string}) => `/postsList/${obj.page}`);
-}
-
-// タグListルート取得
-const getTags = async () => {
-  const apiKey = process.env.MICROCMS_API_KEY;
-  const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/tags?field=id&limit=100";
-  const res = await fetch(
-    url,
-    {
-      method: "GET",
-      headers: {
-        'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
-      }
-    }
-  );
-  const id = (await res.json()).contents;
-
-  const routeList = [];
-  // タグ毎にページングルート作成
-  for(let i = 0; i < id.length; i++)
-  {
-    // index用ルート
-    routeList.push({id: id[i].id, page: ""});
-    // 対象post件数
-    const totalCount = await getPostCount("posts", "tags[contains]" + id[i].id);
-    // 1ページ当たりのpost数
-    const pageLimit = Number(process.env.PAGE_LIMIT) > 0 ? Number(process.env.PAGE_LIMIT) : 1;
-    // ページ数
-    const maxPage = Math.ceil(totalCount / pageLimit);
-    for(let j = 0; j < maxPage; j++)
-    {
-      routeList.push({id: id[i].id, page: (j+1).toString()});
-    }
-  }
-
-  return routeList.map((obj:{id : string, page : string}) => `/tags/${obj.id}/${obj.page}`)
-}
-
-// カテゴリListルート取得
-const getCategories = async () => {
-  const apiKey = process.env.MICROCMS_API_KEY;
-  const url = (process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "") + "/categories?field=id&limit=100";
-  const res = await fetch(
-    url,
-    {
-      method: "GET",
-      headers: {
-        'X-MICROCMS-API-KEY': apiKey ? apiKey : ""
-      }
-    }
-  );
-  const id = (await res.json()).contents;
-
-  const routeList = [];
-  // カテゴリ毎にページングルート作成
-  for(let i = 0; i < id.length; i++)
-  {
-    // index用ルート
-    routeList.push({id: id[i].id, page: ""});
-    // 対象post件数
-    const totalCount = await getPostCount("posts", "category[equals]" + id[i].id);
-    // 1ページ当たりのpost数
-    const pageLimit = Number(process.env.PAGE_LIMIT) > 0 ? Number(process.env.PAGE_LIMIT) : 1;
-    // ページ数
-    const maxPage = Math.ceil(totalCount / pageLimit);
-    for(let j = 0; j < maxPage; j++)
-    {
-      routeList.push({id: id[i].id, page: (j+1).toString()});
-    }
-  }
-
-  return routeList.map((obj:{id : string, page : string}) => `/categories/${obj.id}/${obj.page}`)
-}
+import { useGetPostRoutesServ, useGetPostListRoutesServ, useGetTagsRouteServ, useGetCategoriesRouteServ } from "./composables/useMicrocmsImpServ";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -145,16 +7,21 @@ export default defineNuxtConfig({
 
   hooks: {
     async 'nitro:config'(nitroConfig) {
-      const slugs = await getPostRoutes();
+      // 動的ルーティングのプリレンダリング設定
+      const apiKey:string = process.env.MICROCMS_API_KEY ? process.env.MICROCMS_API_KEY : "";
+      const apiEndpoint:string = process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "";
+      const pageLimit:number = Number(process.env.PAGE_LIMIT) > 0 ? Number(process.env.PAGE_LIMIT) : 1;
+
+      const slugs = await useGetPostRoutesServ(apiKey, apiEndpoint);
       nitroConfig.prerender?.routes?.push(...slugs);
 
-      const postList = await getPostsList();
+      const postList = await useGetPostListRoutesServ(apiKey, apiEndpoint, pageLimit);
       nitroConfig.prerender?.routes?.push(...postList);
 
-      const tags = await getTags();
+      const tags = await useGetTagsRouteServ(apiKey, apiEndpoint, pageLimit);
       nitroConfig.prerender?.routes?.push(...tags);
 
-      const categories = await getCategories();
+      const categories = await useGetCategoriesRouteServ(apiKey, apiEndpoint, pageLimit);
       nitroConfig.prerender?.routes?.push(...categories);
     }
   },
