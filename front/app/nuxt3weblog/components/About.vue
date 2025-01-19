@@ -4,12 +4,14 @@
     <div v-html="about.about" class="textarea" />
 
     <h2>Author</h2>
+
     <v-img
       v-bind:src="about.prof?.url"
       class="my-3 profile"
       contain
     >
     </v-img>
+    
     <h3>{{ about.author }}</h3>
     <div  v-html="about.desc" class="textarea" />
 
