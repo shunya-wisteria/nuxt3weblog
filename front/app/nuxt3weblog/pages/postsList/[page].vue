@@ -33,7 +33,7 @@ const OnPaging = () => {
 }
 
 useHead({
-  title:"Posts"
+  title:"Posts（" + page.value +"/" + maxPage.value + ")"
 })
 
 
