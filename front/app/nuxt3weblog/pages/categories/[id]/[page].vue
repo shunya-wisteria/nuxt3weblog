@@ -31,7 +31,7 @@ const OnPaging = () => {
 }
 
 useHead({
-  title:"Category : " + category.value
+  title:"Category : " + category.value + " (" + page.value +"/" + maxPage.value + ")"
 })
 
 </script>
