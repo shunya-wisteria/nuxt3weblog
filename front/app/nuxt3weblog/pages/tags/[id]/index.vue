@@ -35,7 +35,7 @@ const OnPaging = () => {
 }
 
 useHead({
-  title:"Tag : " + tagName.value
+  title:"Tag : " + tagName.value + " (" + page.value +"/" + maxPage.value + ")"
 })
 
 </script>
