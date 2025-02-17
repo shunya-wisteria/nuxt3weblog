@@ -46,7 +46,7 @@ export async function useGetPostRoutesServ(apiKey:string, apiEndpoint:string):Pr
       ids = ids.concat(id)
     }
   }
-  return ids.map((obj: { id: string }) => `/posts/${obj.id}`);
+  return ids.map((obj: { id: string }) => `/posts/${obj.id}/`);
 }
 
 // PostListルート取得
@@ -59,7 +59,7 @@ export async function useGetPostListRoutesServ(apiKey:string, apiEndpoint:string
   {
     pageList.push({ page: (i + 1).toString() });
   }
-  return pageList.map((obj: { page: string }) => `/postsList/${obj.page}`);
+  return pageList.map((obj: { page: string }) => `/postsList/${obj.page}/`);
 }
 
 // タグListルート取得
@@ -89,7 +89,7 @@ export async function useGetTagsRouteServ(apiKey:string, apiEndpoint:string, pag
     const maxPage = Math.ceil(totalCount / pageLimit);
     for(let j = 0; j < maxPage; j++)
     {
-      routeList.push({id: id[i].id, page: (j+1).toString()});
+      routeList.push({id: id[i].id, page: (j+1).toString() + '/'});
     }
   }
   return routeList.map((obj:{id : string, page : string}) => `/tags/${obj.id}/${obj.page}`)
@@ -123,7 +123,7 @@ export async function useGetCategoriesRouteServ(apiKey:string, apiEndpoint:strin
     const maxPage = Math.ceil(totalCount / pageLimit);
     for(let j = 0; j < maxPage; j++)
     {
-      routeList.push({id: id[i].id, page: (j+1).toString()});
+      routeList.push({id: id[i].id, page: (j+1).toString() + '/'});
     }
   }
   return routeList.map((obj:{id : string, page : string}) => `/categories/${obj.id}/${obj.page}`)
