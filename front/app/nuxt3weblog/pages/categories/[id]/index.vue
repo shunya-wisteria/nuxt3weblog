@@ -26,7 +26,7 @@ const refresh = (post) =>
 const OnPaging = () => {
   const router = useRouter();
   router.push({
-    path : "/categories/" + category.value + "/" + page.value
+    path : "/categories/" + category.value + "/" + page.value + "/"
   })
 }
 
