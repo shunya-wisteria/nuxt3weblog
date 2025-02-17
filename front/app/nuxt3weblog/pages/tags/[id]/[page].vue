@@ -30,7 +30,7 @@ const refresh = (post) =>
 const OnPaging = () => {
   const router = useRouter();
   router.push({
-    path : "/tags/" + tag.value + "/" + page.value
+    path : "/tags/" + tag.value + "/" + page.value + "/"
   })
 }
 

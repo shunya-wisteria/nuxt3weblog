@@ -148,7 +148,7 @@
         <v-row align="center" justigy="center">
           <v-col cols=12 align="center" style="margin-top:20px;">
             <p>
-              <nuxt-link to="/postsList/2" class="more" style="font-size:120%;">Read More Posts</nuxt-link>
+              <nuxt-link to="/postsList/2/" class="more" style="font-size:120%;">Read More Posts</nuxt-link>
             </p>
           </v-col>
         </v-row>
