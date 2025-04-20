@@ -19,20 +19,41 @@ export async function useGetComments(entryID:string)
   return comments;
 }
 
-export async function usePostComment(formInput:any)
+export async function usePostComment(comReq:any)
 {
   const config = useRuntimeConfig();
-  const formId = config.public.comFormId;
-  const url = "https://docs.google.com/forms/d/e/" + formId + "/formResponse";
-
-  try {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.send(formInput);
+  const url = config.public.comApiEndpoint;
+  try{
+    const apiRes = await fetch(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify(comReq)
+      }
+    );
+    const comRes = await apiRes.json();
+    if(comRes.status != 'S')
+    {
+      return false;
+    }
 
     return true;
 
-  } catch (error) {
-    return false
+  }catch(error) {
+    return false;
   }
+
+  // const formId = config.public.comFormId;
+  // const url = "https://docs.google.com/forms/d/e/" + formId + "/formResponse";
+
+  // try {
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.open("POST", url, true);
+  //   xhr.send(formInput);
+
+  //   return true;
+
+  // } catch (error) {
+  //   return false
+  // }
 }
