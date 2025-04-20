@@ -44,13 +44,14 @@ const OnSend = async () => {
     window.alert("コメント を入力してください。")
     return
   }
-  const submitParams = new FormData()
-  submitParams.append(config.public.formNameField, input.value.name);
-  submitParams.append(config.public.formEmailField, "xxx@example.com");
-  submitParams.append(config.public.formCommentField, input.value.comment);
-  submitParams.append(config.public.formEntryidField, entryId);
 
-  if(await usePostComment(submitParams))
+  const comReq = {
+    name : input.value.name,
+    mail : "xxx@example.com",
+    comment : input.value.comment,
+    entryId : entryId
+  };
+  if(await usePostComment(comReq))
   {
     window.alert("コメントを送信しました。");
     input.value.name = "";
