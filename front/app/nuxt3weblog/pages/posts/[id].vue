@@ -1,6 +1,6 @@
 <template>
   <template v-if="data">
-    <Post :post="(data as Post)"></Post>
+    <Post :post="(data as Post)" :blogAbstract="blogAbstract"></Post>
     <Comment :entryId="data.id" v-if="config.public.comFormEnabled == '1'"/>
   </template>
 </template>
@@ -11,10 +11,22 @@ import type { PageInfo } from "~~/types/pageinfo";
 
 const { params } = useRoute();
 
+const contentId = Array.isArray(params.id) ? params.id[0] : params.id;
+
+// 本文取得
 const { data } = await useMicroCMSGetListDetail<Post>({
   endpoint: "posts",
-  contentId: Array.isArray(params.id) ? params.id[0] : params.id,
+  contentId: contentId
 });
+
+// 本文要約
+const blogAbstract = ref("");
+if(data.value != null){
+  blogAbstract.value = await useBlogAbstract(contentId, data.value.body, true, true);
+}
+else{
+  blogAbstract.value = await useBlogAbstract(contentId, "", true, true);
+}
 
 const pageInfo = useState('PageInfo').value as PageInfo;
 const pageTitle = pageInfo.title;

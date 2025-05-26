@@ -113,6 +113,8 @@ export default defineNuxtConfig({
 
       comFormEnabled : process.env.COM_FORM_ENABLED,
       comApiEndpoint : process.env.COM_API_ENDPOINT,
+
+      blogAbstractApiEndpoint: process.env.BLOG_ABSTRACT_API_ENDPOINT,
     }
   },
 
