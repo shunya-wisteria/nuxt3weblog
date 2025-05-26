@@ -23,6 +23,11 @@
       <img v-bind:src="post.eyecatch == null ? '' : post.eyecatch.url" v-if="post.eyecatch != null">
     </div>
 
+    <div style="margin-bottom: 60px;" v-if="blogAbstract && blogAbstract.length > 0">
+      <h2>Abstract</h2>
+      <div v-html="blogAbstract" class="textarea"></div>
+    </div>
+
     <div v-if="post.toc" class="textarea">
       <ul class="tocs bg-toc_bg text-main_text">
         <span style="font-weight:600; font-size:120%;">目次</span>
@@ -51,9 +56,10 @@ import type { Post } from '~/types/post';
 
 interface Props {
   post: Post,
+  blogAbstract: string
 }
 
-const { post } = defineProps<Props>()
+const { post, blogAbstract } = defineProps<Props>()
 
 const toc = computed(() => {
   const $ = load(post.body as string)
