@@ -16,5 +16,4 @@ export type Post = {
   category?: Category;
   tags?: (MicroCMSListContent & Tag) | null;
   body_old?: string | null;
-  blogAbstract?: string | null;
 }
