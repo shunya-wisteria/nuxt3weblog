@@ -1,4 +1,5 @@
 import { useGetPostRoutesServ, useGetPostListRoutesServ, useGetTagsRouteServ, useGetCategoriesRouteServ } from "./composables/useMicrocmsImpServ";
+import { useGenerateRSS } from "./composables/useGenerateRSS";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -23,6 +24,12 @@ export default defineNuxtConfig({
 
       const categories = await useGetCategoriesRouteServ(apiKey, apiEndpoint, pageLimit);
       nitroConfig.prerender?.routes?.push(...categories);
+    },
+
+    async 'nitro:build:before'(){
+      const apiKey:string = process.env.MICROCMS_API_KEY ? process.env.MICROCMS_API_KEY : "";
+      const apiEndpoint:string = process.env.MICROCMS_API_ENDPOINT ? process.env.MICROCMS_API_ENDPOINT : "";
+      await useGenerateRSS(apiKey, apiEndpoint);
     }
   },
 

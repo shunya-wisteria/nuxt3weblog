@@ -10,4 +10,9 @@ export default defineNuxtRouteMiddleware((to) => {
     return navigateTo("/postsList/1", { redirectCode: 301, external:false } );
   }
 
+  // /rss -> /rss.xml
+  if(to.path == "/rss") {
+    return navigateTo("/rss.xml", { redirectCode: 301, external:false } );
+  }
+
 });
