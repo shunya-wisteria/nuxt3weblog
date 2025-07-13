@@ -38,7 +38,7 @@
       </ul>
     </div>
 
-    <div v-html="post.body" style="margin-top:30px; " class="textarea"></div>
+    <div v-html="post.body" style="margin-top:30px; " class="textarea line-numbers"></div>
 
     <v-breadcrumbs :items="(breadcrumbs)" style="padding:30px 5px 30px 5px;"></v-breadcrumbs>
 
@@ -53,6 +53,28 @@
 <script setup lang="ts">
 import { load } from 'cheerio';
 import type { Post } from '~/types/post';
+
+import Prism from 'prismjs';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.min.js'
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+
+import 'prismjs/components/prism-csharp.min.js'
+import 'prismjs/components/prism-powershell.min.js'
+import 'prismjs/components/prism-python.min.js';
+import 'prismjs/components/prism-json.min.js';
+import 'prismjs/components/prism-bash.min.js';
+import 'prismjs/components/prism-cshtml.min.js';
+import 'prismjs/components/prism-css.min.js';
+import 'prismjs/components/prism-sql.min.js';
+import 'prismjs/components/prism-docker.min.js';
+import 'prismjs/components/prism-yaml.min.js';
+import 'prismjs/components/prism-markdown.min.js';
+import 'prismjs/components/prism-batch.min.js'
+import 'prismjs/components/prism-typescript.min.js'
+
+import 'prismjs/themes/prism-tomorrow.css';
+
+import { onMounted, nextTick, watch } from 'vue';
 
 interface Props {
   post: Post,
@@ -108,6 +130,18 @@ function initializeIframely() {
     window.iframely.load();
   }
 }
+
+onMounted(() => {
+  nextTick(() => {
+    Prism.highlightAll();
+  });
+});
+
+watch(() => post.body, () => {
+  nextTick(() => {
+    Prism.highlightAll();
+  });
+});
 
 </script>
 
