@@ -8,6 +8,23 @@
 <script setup lang="ts">
 import type { Post } from "~~/types/post";
 import type { PageInfo } from "~~/types/pageinfo";
+import { onMounted, nextTick, watch } from 'vue';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-csharp.min.js'
+import 'prismjs/components/prism-powershell.min.js'
+import 'prismjs/components/prism-python.min.js';
+import 'prismjs/components/prism-json.min.js';
+import 'prismjs/components/prism-bash.min.js';
+import 'prismjs/components/prism-cshtml.min.js';
+import 'prismjs/components/prism-css.min.js';
+import 'prismjs/components/prism-sql.min.js';
+import 'prismjs/components/prism-docker.min.js';
+import 'prismjs/components/prism-yaml.min.js';
+import 'prismjs/components/prism-markdown.min.js';
+import 'prismjs/components/prism-batch.min.js'
+import 'prismjs/components/prism-typescript.min.js'
+
+import 'prismjs/themes/prism-tomorrow.css';
 
 const { params } = useRoute();
 
@@ -44,4 +61,16 @@ useHead({
     { hid: 'og:image', property: 'og:image', content: data.value?.eyecatch == null ? '':data.value.eyecatch.url },
   ]
 })
+
+onMounted(() => {
+  nextTick(() => {
+    Prism.highlightAll();
+  });
+});
+
+watch(() => data.value?.body, () => {
+  nextTick(() => {
+    Prism.highlightAll();
+  });
+});
 </script>

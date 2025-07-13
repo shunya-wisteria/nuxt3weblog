@@ -98,7 +98,7 @@ h3{
   list-style-type: decimal;
 }
 
-.post pre{
+/* .post pre{
   background-color:rgb(var(--v-theme-code_bg));
   border-radius: 2px;
   border: solid 1px #d5d5d5;
@@ -118,7 +118,7 @@ h3{
   font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
   font-size: 90%;
   color:rgb(var(--v-theme-code_text));
-}
+} */
 
 .post table{
   margin: 20px 0px;
