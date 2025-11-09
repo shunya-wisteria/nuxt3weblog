@@ -3,14 +3,14 @@
     <p class="comTitle">Comments</p>
     <v-text-field label="お名前(必須)" required color="blue-grey lighten-1" v-model="input.name"
       variant="underlined" class="textarea"></v-text-field>
-    <v-text-field label="コメント(必須)" required color="blue-grey lighten-1" v-model="input.comment"
-      variant="underlined" class="textarea"></v-text-field>
+    <v-textarea label="コメント(必須)" required color="blue-grey lighten-1" v-model="input.comment"
+      variant="underlined" class="textarea"></v-textarea>
     <v-btn depressed large color="blue-grey-lighten-2" width="100%" v-on:click="OnSend()">送信</v-btn>
 
     <v-container class="commentList">
       <v-row>
         <v-col cols="12" class="comment" v-for="(comment, index) in comments" :key="index">
-          <p class="commentBody textarea">{{ comment.comment }}</p>
+          <p class="commentBody textarea" v-html="sanitizeComment(comment.comment).replace(/\r?\n/g, '<br>')"></p>
           <p class="commentFooter">{{ comment.name }} - {{ dateTime(comment.tstmp) }}</p>
         </v-col>
       </v-row>
@@ -35,6 +35,16 @@ useGetComments(entryId).then((comData) => {
   comments.value = comData
 })
 
+const sanitizeComment = (input: string): string => {
+  return input
+    .replace(/&/g, '')
+    .replace(/</g, '')
+    .replace(/>/g, '')
+    .replace(/"/g, '')
+    .replace(/'/g, '')
+    .replace(/\//g, '')
+}
+
 const OnSend = async () => {
   if (input.value.name == "" || input.value.name == null) {
     window.alert("お名前 を入力してください。")
@@ -48,7 +58,7 @@ const OnSend = async () => {
   const comReq = {
     name : input.value.name,
     mail : "xxx@example.com",
-    comment : input.value.comment,
+    comment : sanitizeComment(input.value.comment),
     entryId : entryId
   };
   if(await usePostComment(comReq))
