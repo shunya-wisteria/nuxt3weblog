@@ -108,25 +108,8 @@ watch(isDark, (v) => {
   }
 })
 
-watch(() => colorMode.value, (val) => {
-  isDark.value = val === 'dark'
-})
-
 // expose theme name for v-app binding
 const themeName = computed(() => colorMode.value)
-
-// Ensure colorMode matches HTML class at client startup to avoid UI mismatch
-// if (process.client) {
-//   try {
-//     const htmlDark = document.documentElement.classList.contains('dark')
-//     const desired = htmlDark ? 'dark' : 'light'
-//     if (colorMode.value !== desired) {
-//       colorMode.value = desired
-//     }
-//   } catch (e) {
-//     // ignore
-//   }
-// }
 
 const themeIcon = computed(()=>{
   return isDark.value ? 'mdi-weather-night' : 'mdi-weather-sunny'
