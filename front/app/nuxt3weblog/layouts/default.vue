@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" :theme="theme" class="bg-background text-main_text">
+  <v-app id="inspire" :theme="themeName" class="bg-background text-main_text">
     <v-navigation-drawer
       expand-on-hover
       :rail="!mdAndDown"
@@ -30,7 +30,9 @@
         <span class="subTitle">{{ pageInfo.subTitle }}</span>
       </v-app-bar-title>
       <template v-slot:append>
-        <v-switch v-model="darkMode" @change="changeDarkMode" style="margin-top:25px; margin-right: 5px;" :append-icon="themeIcon"></v-switch>
+        <client-only>
+          <v-switch v-model="isDark" style="margin-top:25px; margin-right: 5px;" :append-icon="themeIcon"></v-switch>
+        </client-only>
       </template> 
     </v-app-bar>
 
@@ -54,100 +56,100 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import type { PageInfo } from '~/types/pageinfo';
+import { ref, computed, watch } from 'vue'
+import type { PageInfo } from '~/types/pageinfo';
 
-  const { mdAndDown } = useDisplay();
+const { mdAndDown } = useDisplay();
 
-  const drawer = ref(false)
+const drawer = ref(false)
 
+let pageInfoData = null
+try {
   const { data } = await useMicroCMSGetObject({endpoint:"pageinfo"});
-  const pageInfo = useState<PageInfo>('PageInfo', ()=>{
-    return data.value as PageInfo
-  })
+  pageInfoData = data.value
+} catch (e) {
+  console.error('useMicroCMSGetObject failed', e)
+}
+const pageInfo = useState<PageInfo>('PageInfo', ()=>{
+  return pageInfoData as PageInfo
+})
 
-  const theme = ref('light')
-  const darkMode = ref(false)
+// use nuxt-color-mode composable (provided by @nuxtjs/color-mode)
+const colorMode = useColorMode()
 
-  const themeIcon = computed(()=>{
-    return darkMode.value ? 'mdi-weather-night' : 'mdi-weather-sunny'
-  })
-
-  onMounted(() => {
-    // システムのダークモード設定を確認
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      theme.value = 'dark'
-      darkMode.value = true
-    }
-
-    // ローカルストレージ上のダークモード設定を確認
-    const disMode = localStorage.getItem("display_mode")
-    if(disMode == 'light' || disMode == 'dark')
-    {
-      theme.value = disMode 
-    }
-    if(disMode == 'dark')
-    {
-      darkMode.value = true
-    }
-  })
-
-  const changeDarkMode = () =>
-  {
-    if(darkMode.value)
-    {
-      theme.value = 'dark'
-    }
-    else
-    {
-      theme.value = 'light'
-    }
-    localStorage.setItem("display_mode", theme.value)
+// sync with Vuetify theme (client only)
+if (process.client) {
+  try {
+    const { useTheme } = await import('vuetify')
+    const vuetifyTheme = useTheme()
+    watch(() => colorMode.value, (val) => {
+      if (vuetifyTheme && vuetifyTheme.global && vuetifyTheme.global.name) {
+        vuetifyTheme.global.name.value = val as string
+      }
+    }, { immediate: true })
+  } catch (e) {
+    console.error('Vuetify theme sync skipped', e)
   }
+}
 
-  const menuItem = ref(
-    [
-        {
-          icon: 'mdi-home-outline',
-          title: 'Home',
-          to: '/'
-        },
-        {
-          icon: 'mdi-account-details-outline',
-          title: 'About',
-          to: '/about/'
-        },
-        {
-          icon: 'mdi-folder-outline',
-          title: 'Categories',
-          to: '/categories/'
-        },
-        {
-          icon: 'mdi-tag-outline',
-          title: 'Tags',
-          to: '/tags/'
-        },
-        {
-          icon: 'mdi-map-marker-check-outline',
-          title: 'PhotoMAP',
-          to: '/photomap/'
-        },
-        {
-          icon: 'mdi-at',
-          title: 'Contact',
-          to: '/contact/'
-        }
-      ]
-  )
+// note: initial mode is handled by @nuxtjs/color-mode (script injected before hydration)
+// use a simple ref for v-switch to avoid hydration/mapping issues
+import { ref as vueRef } from 'vue'
+const isDark = vueRef(false)
 
+// keep isDark and colorMode in sync
+isDark.value = colorMode.value === 'dark'
 
-
-</script>
-
-<script lang="ts">
-  export default {
-    data: () => ({ drawer: false }),
+watch(isDark, (v) => {
+  const newVal = v ? 'dark' : 'light'
+  colorMode.value = newVal
+  if (process.client) {
+    try { localStorage.setItem('display_mode', newVal) } catch (e) { /* ignore */ }
   }
+})
+
+// expose theme name for v-app binding
+const themeName = computed(() => colorMode.value)
+
+const themeIcon = computed(()=>{
+  return isDark.value ? 'mdi-weather-night' : 'mdi-weather-sunny'
+})
+
+const menuItem = ref(
+  [
+      {
+        icon: 'mdi-home-outline',
+        title: 'Home',
+        to: '/'
+      },
+      {
+        icon: 'mdi-account-details-outline',
+        title: 'About',
+        to: '/about/'
+      },
+      {
+        icon: 'mdi-folder-outline',
+        title: 'Categories',
+        to: '/categories/'
+      },
+      {
+        icon: 'mdi-tag-outline',
+        title: 'Tags',
+        to: '/tags/'
+      },
+      {
+        icon: 'mdi-map-marker-check-outline',
+        title: 'PhotoMAP',
+        to: '/photomap/'
+      },
+      {
+        icon: 'mdi-at',
+        title: 'Contact',
+        to: '/contact/'
+      }
+    ]
+)
+
 </script>
 
 <style scoped>
