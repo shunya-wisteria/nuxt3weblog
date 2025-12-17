@@ -73,6 +73,7 @@ export default defineNuxtConfig({
     'nuxt-microcms-module',
     '@nuxtjs/sitemap',
     'nuxt-gtag',
+    '@nuxtjs/color-mode',
   ],
 
   vuetify: {
@@ -85,6 +86,14 @@ export default defineNuxtConfig({
       'Rounded Mplus 1c': true,
       'Roboto': true
     }
+  },
+
+  // color-mode configuration (nuxt-color-mode)
+  colorMode: {
+    preference: 'system',    // 初期はOSの設定に合わせる
+    fallback: 'light',       // 情報が取れない場合のデフォルト
+    storageKey: 'display_mode', // 既存の localStorage キーと互換
+    classSuffix: ''          // html に 'dark' クラスを付与
   },
 
   microCMS: {

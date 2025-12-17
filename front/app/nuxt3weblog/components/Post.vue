@@ -112,10 +112,13 @@ const breadcrumbs: any = [
   },
 ]
 
-// インライン埋め込みブロックの初期読込
-loadIframelyScript().then(initializeIframely)
+// インライン埋め込みブロックの初期読込（SSRでは実行しない）
 function loadIframelyScript(){
   return new Promise((resolve) => {
+    if (typeof document === 'undefined') {
+      resolve(undefined);
+      return;
+    }
     const script = document.createElement('script');
     script.src = 'https://cdn.iframe.ly/embed.js';
     script.async = true;
@@ -124,14 +127,17 @@ function loadIframelyScript(){
   });
 }
 function initializeIframely() {
+  if (typeof window === 'undefined') return;
   // @ts-ignore
-  if (window.iframel) {
+  if (window.iframely) {
     // @ts-ignore
     window.iframely.load();
   }
 }
 
 onMounted(() => {
+  // クライアントでのみ iframe.ly スクリプトを読み込む
+  loadIframelyScript().then(initializeIframely).catch(() => {});
   nextTick(() => {
     Prism.highlightAll();
   });
