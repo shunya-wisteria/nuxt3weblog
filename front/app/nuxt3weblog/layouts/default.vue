@@ -96,15 +96,30 @@ watch(() => colorMode.value, (val) => {
   const newVal = localStorage.getItem("display_mode")
   if(newVal != null)
   {
-    colorMode.value = newVal 
+    // colorMode.value = newVal 
+    isDark.value = newVal === 'dark' ? true : false;
   }
 })
 
+// const isDark = computed({
+//   get(){
+//     return colorMode.value === 'dark';
+//   },
+//   set(v:string){
+//     const newVal = v ? 'dark' : 'light'
+//     colorMode.value = newVal
+//     if (process.client) {
+//       try { 
+//         localStorage.setItem('display_mode', newVal) 
+//       } catch (e) { /* ignore */ }
+//     }
+//   }
+// })
 const isDark = computed({
   get(){
     return colorMode.value === 'dark';
   },
-  set(v:string){
+  set(v:boolean){
     const newVal = v ? 'dark' : 'light'
     colorMode.value = newVal
     if (process.client) {
