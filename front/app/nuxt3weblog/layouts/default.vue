@@ -92,25 +92,23 @@ if (process.client) {
   }
 }
 
-// note: initial mode is handled by @nuxtjs/color-mode (script injected before hydration)
-// use a simple ref for v-switch to avoid hydration/mapping issues
-import { ref as vueRef } from 'vue'
-const isDark = vueRef(false)
-
-// keep isDark and colorMode in sync
-isDark.value = colorMode.value === 'dark'
-
-watch(isDark, (v) => {
-  const newVal = v ? 'dark' : 'light'
-  colorMode.value = newVal
-  if (process.client) {
-    try { localStorage.setItem('display_mode', newVal) } catch (e) { /* ignore */ }
+const isDark = computed({
+  get(){
+    return colorMode.value === 'dark';
+  },
+  set(v:string){
+    const newVal = v ? 'dark' : 'light'
+    colorMode.value = newVal
+    if (process.client) {
+      try { 
+        localStorage.setItem('display_mode', newVal) 
+      } catch (e) { /* ignore */ }
+    }
   }
 })
 
 // expose theme name for v-app binding
 const themeName = computed(() => colorMode.value)
-
 const themeIcon = computed(()=>{
   return isDark.value ? 'mdi-weather-night' : 'mdi-weather-sunny'
 })
