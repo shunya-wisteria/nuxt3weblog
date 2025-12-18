@@ -92,6 +92,14 @@ if (process.client) {
   }
 }
 
+watch(() => colorMode.value, (val) => {
+  const newVal = localStorage.getItem("display_mode")
+  if(newVal != null)
+  {
+    colorMode.value = newVal 
+  }
+})
+
 const isDark = computed({
   get(){
     return colorMode.value === 'dark';
