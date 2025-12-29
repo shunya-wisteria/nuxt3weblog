@@ -74,6 +74,7 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     'nuxt-gtag',
     '@nuxtjs/color-mode',
+    '@nuxt/image',
   ],
 
   vuetify: {
