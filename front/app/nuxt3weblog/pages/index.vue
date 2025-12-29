@@ -1,10 +1,18 @@
 <template>
   <section>
-    <v-img position="bottom center" :src="pageInfo.portalEyecatch?.url" rel="preload" height="350px" cover>
-      <v-row class="fill-height" justify="center" align="center">
+    <div class="eyecatch-wrapper">
+      <img
+        :src="pageInfo.portalEyecatch?.url"
+        alt="eyecatch"
+        class="eyecatch-img"
+        fetchpriority="high"
+        loading="eager"
+      />
+      <div class="eyecatch-overlay">
         <div class="introMsg">{{ pageInfo.portalEyecatchCom }}</div>
-      </v-row>
-    </v-img>
+      </div>
+    </div>
+
 
     <v-layout column justify="center" align="center">
       <v-container>
@@ -17,20 +25,40 @@
             <nuxt-link :to="pageInfo.topLink1?.url" v-if="!pageInfo.topLink1?.external"></nuxt-link>
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-                  <v-img :src="pageInfo.topLink1?.photo?.url" class="align-end" height="150" cover>
-                    <v-card-title class="text-white text-left topLinkText"
-                      v-text="pageInfo.topLink1?.title"></v-card-title>
-                  </v-img>
+                  <div class="toplink-wrapper">
+                    <img
+                      :src="pageInfo.topLink1?.photo?.url"
+                      :alt="pageInfo.topLink1?.title + ' へのリンク画像'"
+                      class="toplink-img"
+                    />
+
+                    <div class="toplink-overlay">
+                      <div class="v-card-title text-white text-left topLinkText">
+                        {{ pageInfo.topLink1?.title }}
+                      </div>
+                    </div>
+                  </div>
                 </v-card>
               </v-hover>
             </a>
             <nuxt-link :to="pageInfo.topLink1?.url" v-if="!pageInfo.topLink1?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-                  <v-img :src="pageInfo.topLink1?.photo?.url" class="align-end" height="150" cover>
-                    <v-card-title class="text-white text-left topLinkText"
-                      v-text="pageInfo.topLink1?.title"></v-card-title>
-                  </v-img>
+                  <div class="toplink-wrapper">
+                    <img
+                      :src="pageInfo.topLink1?.photo?.url"
+                      :alt="pageInfo.topLink1?.title + ' へのリンク画像'"
+                      class="toplink-img"
+                    />
+
+                    <div class="toplink-overlay">
+                      <div class="v-card-title text-white text-left topLinkText">
+                        {{ pageInfo.topLink1?.title }}
+                      </div>
+                    </div>
+                  </div>
+
+
                 </v-card>
               </v-hover>
             </nuxt-link>
@@ -40,20 +68,40 @@
             <a :href="pageInfo.topLink2?.url"  target="_blank" v-if="pageInfo.topLink2?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-                  <v-img :src="pageInfo.topLink2?.photo?.url" class="align-end" height="150" cover>
-                    <v-card-title class="text-white text-left topLinkText"
-                      v-text="pageInfo.topLink2?.title"></v-card-title>
-                  </v-img>
+                  <div class="toplink-wrapper">
+                    <img
+                      :src="pageInfo.topLink2?.photo?.url"
+                      :alt="pageInfo.topLink2?.title + ' へのリンク画像'"
+                      class="toplink-img"
+                    />
+
+                    <div class="toplink-overlay">
+                      <div class="v-card-title text-white text-left topLinkText">
+                        {{ pageInfo.topLink2?.title }}
+                      </div>
+                    </div>
+                  </div>
+
                 </v-card>
               </v-hover>
             </a>
             <nuxt-link :to="pageInfo.topLink2?.url" v-if="!pageInfo.topLink2?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-                  <v-img :src="pageInfo.topLink2?.photo?.url" class="align-end" height="150" cover>
-                    <v-card-title class="text-white text-left topLinkText"
-                      v-text="pageInfo.topLink2?.title"></v-card-title>
-                  </v-img>
+                  <div class="toplink-wrapper">
+                    <img
+                      :src="pageInfo.topLink2?.photo?.url"
+                      :alt="pageInfo.topLink2?.title + ' へのリンク画像'"
+                      class="toplink-img"
+                    />
+
+                    <div class="toplink-overlay">
+                      <div class="v-card-title text-white text-left topLinkText">
+                        {{ pageInfo.topLink2?.title }}
+                      </div>
+                    </div>
+                  </div>
+
                 </v-card>
               </v-hover>
             </nuxt-link>
@@ -63,20 +111,38 @@
             <a :href="pageInfo.topLink3?.url" target="_blank" v-if="pageInfo.topLink3?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-                  <v-img :src="pageInfo.topLink3?.photo?.url" class="align-end" height="150" cover>
-                    <v-card-title class="text-white text-left topLinkText"
-                      v-text="pageInfo.topLink3?.title"></v-card-title>
-                  </v-img>
+                  <div class="toplink-wrapper">
+                    <img
+                      :src="pageInfo.topLink3?.photo?.url"
+                      :alt="pageInfo.topLink3?.title + ' へのリンク画像'"
+                      class="toplink-img"
+                    />
+
+                    <div class="toplink-overlay">
+                      <div class="v-card-title text-white text-left topLinkText">
+                        {{ pageInfo.topLink3?.title }}
+                      </div>
+                    </div>
+                  </div>
                 </v-card>
               </v-hover>
             </a>
             <nuxt-link :to="pageInfo.topLink3?.url" v-if="!pageInfo.topLink3?.external">
               <v-hover v-slot="{ isHovering, props }" open-delay="80">
                 <v-card :elevation="isHovering ? 12 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-                  <v-img :src="pageInfo.topLink3?.photo?.url" class="align-end" height="150" cover>
-                    <v-card-title class="text-white text-left topLinkText"
-                      v-text="pageInfo.topLink3?.title"></v-card-title>
-                  </v-img>
+                  <div class="toplink-wrapper">
+                    <img
+                      :src="pageInfo.topLink3?.photo?.url"
+                      :alt="pageInfo.topLink3?.title + ' へのリンク画像'"
+                      class="toplink-img"
+                    />
+
+                    <div class="toplink-overlay">
+                      <div class="v-card-title text-white text-left topLinkText">
+                        {{ pageInfo.topLink3?.title }}
+                      </div>
+                    </div>
+                  </div>
                 </v-card>
               </v-hover>
             </nuxt-link>
@@ -173,7 +239,15 @@ const { data } = await useMicroCMSGetList<Post>({
 const pageInfo = ref(useState('PageInfo') as PageInfo);
 
 useHead({
-  title:pageInfo.value.title
+  title:pageInfo.value.title,
+  link: [
+    {
+      rel: 'preload',
+      as: 'image',
+      href: pageInfo.value.portalEyecatch?.url
+    }
+  ]
+
 });
 
 </script>
@@ -249,5 +323,55 @@ useHead({
 
 .topLinkColLeft {
   padding-right: 2.5px;
+}
+
+.eyecatch-wrapper {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.eyecatch-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom center;
+  display: block;
+}
+
+.eyecatch-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -15px;
+}
+
+.toplink-wrapper {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.toplink-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.toplink-overlay {
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 </style>
