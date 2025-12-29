@@ -12,7 +12,7 @@
           :to="item.to"
         >
           <template v-slot:prepend>
-            <v-icon :icon="item.icon" style="color:rgb(var(--v-theme-menu_text));" />
+            <v-icon :icon="item.icon" style="color:rgb(var(--v-theme-menu_text));" aria-hidden="true" />
           </template>
           <v-list-item-title v-text="item.title" style="color:rgb(var(--v-theme-menu_text));"></v-list-item-title>
         </v-list-item>
@@ -31,7 +31,7 @@
       </v-app-bar-title>
       <template v-slot:append>
         <client-only>
-          <v-switch v-model="isDark" style="margin-top:25px; margin-right: 5px;" :append-icon="themeIcon"></v-switch>
+          <v-switch v-model="isDark" style="margin-top:25px; margin-right: 5px;" :append-icon="themeIcon" aria-label="ライト/ダークモード切替"></v-switch>
         </client-only>
       </template> 
     </v-app-bar>
