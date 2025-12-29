@@ -1,27 +1,10 @@
 <template>
   <section>
-    <div class="eyecatch-wrapper">
-      <NuxtImg
-        :src="pageInfo.portalEyecatch?.url"
-        alt="アイキャッチ"
-        preload
-        loading="eager"
-        fetchpriority="high"
-        width="2400"
-        height="1600"
-        sizes="sm:600px md:1200px lg:2400px"
-        format="avif,webp"
-        quality="75"
-        class="eyecatch-img"
-      />
-
-      <div class="eyecatch-overlay">
-        <div class="introMsg">
-          {{ pageInfo.portalEyecatchCom }}
-        </div>
-      </div>
-    </div>
-
+    <v-img position="bottom center" :src="pageInfo.portalEyecatch?.url" rel="preload" height="350px" cover>
+      <v-row class="fill-height" justify="center" align="center">
+        <div class="introMsg">{{ pageInfo.portalEyecatchCom }}</div>
+      </v-row>
+    </v-img>
 
     <v-layout column justify="center" align="center">
       <v-container>
@@ -266,28 +249,5 @@ useHead({
 
 .topLinkColLeft {
   padding-right: 2.5px;
-}
-
-.eyecatch-wrapper {
-  position: relative;
-  width: 100%;
-  height: 350px;
-  overflow: hidden;
-}
-
-.eyecatch-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: bottom center;
-}
-
-.eyecatch-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top:-25px;
 }
 </style>
