@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import type { PageInfo } from '~/types/pageinfo';
+import type { About } from '~/types/about';
 
 const { mdAndDown } = useDisplay();
 
@@ -73,6 +74,18 @@ try {
 const pageInfo = useState<PageInfo>('PageInfo', ()=>{
   return pageInfoData as PageInfo
 })
+
+let aboutData = null
+try {
+  const { data } = await useMicroCMSGetObject({endpoint:"about"});
+  aboutData = data.value
+} catch (e) {
+  console.error('useMicroCMSGetObject failed', e)
+}
+useState<About>('About', ()=>{
+  return aboutData as About
+})
+
 
 // use nuxt-color-mode composable (provided by @nuxtjs/color-mode)
 const colorMode = useColorMode()
@@ -101,20 +114,6 @@ watch(() => colorMode.value, (val) => {
   }
 })
 
-// const isDark = computed({
-//   get(){
-//     return colorMode.value === 'dark';
-//   },
-//   set(v:string){
-//     const newVal = v ? 'dark' : 'light'
-//     colorMode.value = newVal
-//     if (process.client) {
-//       try { 
-//         localStorage.setItem('display_mode', newVal) 
-//       } catch (e) { /* ignore */ }
-//     }
-//   }
-// })
 const isDark = computed({
   get(){
     return colorMode.value === 'dark';

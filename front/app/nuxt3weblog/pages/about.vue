@@ -6,7 +6,8 @@
 
 <script setup lang="ts">
 import type { About } from '~/types/about';
-const about = (await useMicroCMSGetObject<About>({endpoint:"about"},{key:"about"})).data;
+
+const about = ref(useState('About') as About);
 
 useHead({
   title:"About"
