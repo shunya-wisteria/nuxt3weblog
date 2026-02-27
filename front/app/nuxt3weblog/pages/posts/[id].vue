@@ -38,10 +38,16 @@ useHead({
   meta:[
     { hid: 'description', name: 'description', content: data.value?.abstract },
     { hid: 'og:type', property: 'og:type', content: 'article' },
-    { hid: 'og:url', property: 'og:url', content: ogUrl + '/posts/' + data.value?.id },
+    { hid: 'og:url', property: 'og:url', content: ogUrl + '/posts/' + data.value?.id + '/' },
     { hid: 'og:title', property: 'og:title', content: data.value?.title + " - " +  pageTitle},
     { hid: 'og:description', property: 'og:description', content: data.value?.abstract },
     { hid: 'og:image', property: 'og:image', content: data.value?.eyecatch == null ? '':data.value.eyecatch.url },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: ogUrl + '/posts/' + data.value?.id + '/'
+    }
   ]
 })
 </script>
