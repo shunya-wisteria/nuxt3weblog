@@ -29,25 +29,76 @@ else{
 }
 
 const pageInfo = useState('PageInfo').value as PageInfo;
-const pageTitle = pageInfo.title;
+const pageTitle = pageInfo?.title ?? 'Blog';
 const config = useRuntimeConfig();
 const ogUrl = config.public.metaOgUrl;
 
-useHead({
-  title:data.value?.title,
-  meta:[
-    { hid: 'description', name: 'description', content: data.value?.abstract },
-    { hid: 'og:type', property: 'og:type', content: 'article' },
-    { hid: 'og:url', property: 'og:url', content: ogUrl + '/posts/' + data.value?.id + '/' },
-    { hid: 'og:title', property: 'og:title', content: data.value?.title + " - " +  pageTitle},
-    { hid: 'og:description', property: 'og:description', content: data.value?.abstract },
-    { hid: 'og:image', property: 'og:image', content: data.value?.eyecatch == null ? '':data.value.eyecatch.url },
-  ],
-  link: [
-    {
-      rel: 'canonical',
-      href: ogUrl + '/posts/' + data.value?.id + '/'
-    }
-  ]
+const buildPostJsonLd = () => {
+  const post = data.value;
+  if (!post) {
+    return null;
+  }
+
+  const canonicalUrl = `${ogUrl}/posts/${post.id}/`;
+  const imageUrl = post.eyecatch?.url ?? '';
+  const authorName = pageInfo?.author ?? pageTitle;
+  const authorUrl = `${ogUrl}/about/`;
+  const keywords = post.tags?.map((tag:any) => tag.name).filter(Boolean) ?? [];
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title ?? '',
+    description: post.abstract ?? '',
+    image: imageUrl ? [imageUrl] : [],
+    url: canonicalUrl,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    author: {
+      '@type': 'Person',
+      name: authorName,
+      url: authorUrl
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: pageTitle,
+      logo: {
+        '@type': 'ImageObject',
+        url: config.public.metaOgUrl ? `${config.public.metaOgUrl}/favicon.ico` : '',
+      },
+    },
+    datePublished: post.publishedAt ?? post.createdAt ?? '',
+    dateModified: post.revisedAt ?? post.updatedAt ?? post.publishedAt ?? post.createdAt ?? '',
+    articleSection: post.category?.cat_name ?? '',
+    keywords,
+  };
+};
+
+useHead(() => {
+  const postJsonLd = buildPostJsonLd();
+
+  return {
+    title:data.value?.title,
+    meta:[
+      { hid: 'description', name: 'description', content: data.value?.abstract },
+      { hid: 'og:type', property: 'og:type', content: 'article' },
+      { hid: 'og:url', property: 'og:url', content: ogUrl + '/posts/' + data.value?.id + '/' },
+      { hid: 'og:title', property: 'og:title', content: data.value?.title + " - " +  pageTitle},
+      { hid: 'og:description', property: 'og:description', content: data.value?.abstract },
+      { hid: 'og:image', property: 'og:image', content: data.value?.eyecatch == null ? '':data.value.eyecatch.url },
+    ],
+    link: [
+      {
+        rel: 'canonical',
+        href: ogUrl + '/posts/' + data.value?.id + '/'
+      }
+    ],
+    script: postJsonLd ? [{
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(postJsonLd)
+    }] : []
+  };
 })
 </script>
