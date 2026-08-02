@@ -75,6 +75,43 @@ const pageInfo = useState<PageInfo>('PageInfo', ()=>{
   return pageInfoData as PageInfo
 })
 
+const config = useRuntimeConfig();
+const siteUrl = config.public.metaOgUrl ?? '';
+
+const buildSiteJsonLd = () => {
+  if (!pageInfo.value) {
+    return null;
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: pageInfo.value.title ?? 'Blog',
+    url: siteUrl,
+    description: pageInfo.value.subTitle ?? '',
+    publisher: {
+      '@type': 'Organization',
+      name: pageInfo.value.title ?? 'Blog',
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: config.public.metaOgUrl ? `${config.public.metaOgUrl}/favicon.ico` : '',
+      },
+    },
+  };
+};
+
+useHead(() => {
+  const siteJsonLd = buildSiteJsonLd();
+
+  return {
+    script: siteJsonLd ? [{
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(siteJsonLd)
+    }] : []
+  };
+});
+
 let aboutData = null
 try {
   const { data } = await useMicroCMSGetObject({endpoint:"about"});
